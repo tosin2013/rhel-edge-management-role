@@ -7,7 +7,7 @@ rh_authentication_basic_password:  password
 
 #########################################################
 ## Required Files
-ssh_pub_key_path: "$HOME/.ssh/id_rsa.pub"
+ssh_pub_key: "$HOME/.ssh/id_rsa.pub"
 
 #########################################################
 ## required variables

@@ -35,3 +35,7 @@
     set_fact:
       tmp_auth_header_fact:
         Authorization: "Bearer {{ rh_offline_authentication_api_bearer_token }}"
+
+  - name: Print ssh key variable
+    ansible.builtin.debug:
+      var: ssh_pub_key
