@@ -1,11 +1,19 @@
 ---
 - name: Create device 
   block:
+  - name: Copying over  device-group.yaml
+    template:
+      src: device-group.yaml.j2
+      dest:  "/tmp/device-group.yaml"
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      remote_src: no
+      mode: 0755
   - name: Create device group 
     uri:
       headers: "{{ tmp_auth_header_fact }}"
       url: https://console.redhat.com/api/edge/v1/device-groups/
       body_format: json
       method: POST
-      body: "{{ lookup('template', '../template/device-group.yaml.j2') }}"
+      body: "{{ lookup('file', '/tmp/device-group.yaml') }}"
       status_code: 201
