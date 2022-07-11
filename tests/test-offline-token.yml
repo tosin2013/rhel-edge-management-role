@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  remote_user: root
+  tasks: 
+  - name: Include default vars
+    include_vars:
+      dir: ../defaults
+      
+  - name:  Test offline token
+    import_tasks: ../ai-svc/setup_auth_headers.yaml
