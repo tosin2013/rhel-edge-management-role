@@ -7,5 +7,5 @@
       url: https://console.redhat.com/api/edge/v1/device-groups/
       body_format: json
       method: POST
-      body: "{{ lookup('template', 'template/device-group.yaml.j2') }}"
+      body: "{{ lookup('template', '../template/device-group.yaml.j2') }}"
       status_code: 201
