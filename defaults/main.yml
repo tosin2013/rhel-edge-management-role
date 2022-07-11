@@ -1,5 +1,6 @@
 ---
 # defaults file for rhel-edge-mangement-role
+generated_asset_directory: ./.generated
 
 rh_offline_authentication_api_bearer_token:  rh_api_offline_token 
 rh_authentication_basic_username:  username 
