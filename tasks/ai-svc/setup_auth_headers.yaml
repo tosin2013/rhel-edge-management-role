@@ -1,6 +1,5 @@
 ---
 - name: Set up Basic Username/Password authentication
-  when: assisted_service_authentication == "user-pass"
   block:
   - name: Set up temporary fact
     set_fact:
@@ -12,7 +11,6 @@
       compiled_uri_headers: "{{ compiled_uri_headers | combine(tmp_auth_header_fact) }}"
 
 - name: Set up Bearer Token authentication
-  when: assisted_service_authentication == "bearer-token"
   block:
   - name: Log into RH SSO API
     uri:
