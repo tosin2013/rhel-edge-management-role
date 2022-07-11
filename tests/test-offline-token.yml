@@ -7,4 +7,4 @@
       dir: ../defaults
       
   - name:  Test offline token
-    import_tasks: tasks/main.yaml
+    import_tasks: ../tasks/main.yml
