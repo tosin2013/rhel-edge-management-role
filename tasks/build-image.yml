@@ -3,7 +3,7 @@
   block:
   - name: Copying over device-group.yaml
     template:
-      src: device-group.yaml.j2
+      src: ../device-group.yaml.j2
       dest:  "/tmp/device-group.yaml"
       owner: "{{ ansible_user }}"
       group: "{{ ansible_user }}"
