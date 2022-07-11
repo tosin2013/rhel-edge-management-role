@@ -7,7 +7,4 @@
       dir: ../defaults
       
   - name:  Test offline token
-    import_tasks: ../tasks/ai-svc/setup_auth_headers.yaml
-
-  - name:  Create  RHEL Edge Binary 
-    import_tasks: ../tasks/build-image.yaml
+    import_tasks: ../tasks/main.yaml
