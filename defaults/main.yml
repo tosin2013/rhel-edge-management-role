@@ -1,9 +1,9 @@
 ---
 # defaults file for rhel-edge-mangement-role
 
-assisted_service_authentication_api_bearer_token:  rh_api_offline_token 
-assisted_service_authentication_basic_username:  username 
-assisted_service_authentication_basic_password:  password 
+rh_offline_authentication_api_bearer_token:  rh_api_offline_token 
+rh_authentication_basic_username:  username 
+rh_authentication_basic_password:  password 
 
 #########################################################
 ## Required Files
