@@ -1,2 +1,3 @@
 ---
 # vars file for rhel-edge-mangement-role
+assisted_service_authentication: bearer-token

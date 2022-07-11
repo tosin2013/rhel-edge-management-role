@@ -1,2 +1,7 @@
 ---
-# tasks file for rhel-edge-mangement-role
+# tasks file for quarkus-cafe-demo-role
+- name: Configure offline token 
+  block:
+    - name: Configure offline token 
+      include_tasks: ai-svc/setup_auth_headers.yaml
+      tags: always 

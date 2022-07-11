@@ -1,10 +1,13 @@
 ---
 # defaults file for rhel-edge-mangement-role
 
+assisted_service_authentication_api_bearer_token:  "{{ rh_api_offline_token }}"
+assisted_service_authentication_basic_username: someUser
+assisted_service_authentication_basic_password: somePass
+
 #########################################################
 ## Required Files
 ssh_pub_key_path: "$HOME/.ssh/id_rsa.pub"
-RH_OFFLINE_TOKEN_PATH: "$HOME/rh-api-offline-token"
 
 #########################################################
 ## required variables
