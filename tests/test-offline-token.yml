@@ -7,4 +7,4 @@
       dir: ../defaults
       
   - name:  Test offline token
-    import_tasks: ../ai-svc/setup_auth_headers.yaml
+    import_tasks: ../tasks/ai-svc/setup_auth_headers.yaml
