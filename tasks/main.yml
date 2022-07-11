@@ -5,3 +5,9 @@
     - name: Configure offline token 
       include_tasks: ai-svc/setup_auth_headers.yaml
       tags: always 
+
+- name: Build Image  
+  block:
+    - name: build image 
+      include_tasks: build-image.yml
+      tags: always 
