@@ -1,0 +1,19 @@
+---
+- name: Running Preflight checks
+  block:
+  - name: Check if iso workspace  exists
+    stat:
+      path: "{{ workspace }}"
+    register: workspace_dir_exists
+
+  - name: Check for  iso workspace directory
+    debug:
+      msg: "The {{ workspace }} exists"
+    when: workspace_dir_exists.stat.exists
+
+  - name: Creates directory
+    file:
+      path: "{{ workspace }}"
+      state: directory
+      mode: '0777'
+    when: workspace_dir_exists.stat.exists == false

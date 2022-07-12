@@ -4,7 +4,7 @@
   - name: Copying over device-group.json
     template:
       src: device-group.json.j2
-      dest:  "/tmp/device-group.json"
+      dest:  "{{ workspace}}/device-group.json"
       owner: "{{ ansible_user }}"
       group: "{{ ansible_user }}"
       remote_src: no
@@ -20,7 +20,7 @@
       url: https://console.redhat.com/api/edge/v1/device-groups/
       body_format: json
       method: POST
-      body: "{{ lookup('file', '/tmp/device-group.json') }}"
+      body: "{{ lookup('file', '{{ workspace}}/device-group.json') }}"
       status_code: 201
 
   tags: 

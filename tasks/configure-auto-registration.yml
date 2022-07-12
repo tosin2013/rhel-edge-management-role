@@ -7,7 +7,7 @@
       password: '{{ rh_authentication_basic_password }}'
       registry: registry.redhat.io
 
-  - name: Check if iso downlaod directory exists
+  - name: Check if iso download directory exists
     stat:
       path: "{{ iso_download_directory }}"
     register: download_dir_exists
@@ -31,7 +31,7 @@
 
   - name: Check if iso exists
     stat:
-      path: "/tmp/{{ image_name  }}.iso"
+      path: "{{ workspace}}/{{ image_name  }}.iso"
     register: check_if_iso_exists
 
   - name: Does the iso exisit
@@ -41,12 +41,12 @@
 
   - name: fail when iso does not exist
     fail: 
-      msg: /tmp/{{ image_name  }}.iso does not exist
+      msg: {{ workspace}}/{{ image_name  }}.iso does not exist
     when: check_if_iso_exists.stat.exists == false
 
   - name: Copy fleet source iso
     copy:
-      src: "/tmp/{{ image_name }}.iso"
+      src: "{{ workspace}}/{{ image_name }}.iso"
       dest: "{{ iso_download_directory }}/fleet_source.iso"
       remote_src: yes
 

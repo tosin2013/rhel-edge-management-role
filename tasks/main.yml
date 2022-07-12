@@ -3,6 +3,10 @@
   import_tasks: ai-svc/setup_auth_headers.yaml
   tags: always 
 
+- name: Run Preflight checks
+  import_tasks: preflight/main.yaml
+  tags: always
+
 - name: Create Device Group 
   import_tasks: create-device-group.yml
   tags: 

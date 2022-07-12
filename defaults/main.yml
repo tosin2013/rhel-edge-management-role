@@ -1,6 +1,6 @@
 ---
 iso_download_directory: "/opt/generated_iso"
-
+workspace: "/opt/workspace"
 # defaults file for rhel-edge-mangement-role
 rh_offline_authentication_api_bearer_token:  rh_api_offline_token 
 rh_authentication_basic_username:  username 
