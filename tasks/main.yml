@@ -1,13 +1,24 @@
 ---
-# tasks file for quarkus-cafe-demo-role
 - name: Configure offline token 
-  block:
-    - name: Configure offline token 
-      include_tasks: ai-svc/setup_auth_headers.yaml
-      tags: always 
+  import_tasks: ai-svc/setup_auth_headers.yaml
+  tags: always 
 
-- name: Build Image  
-  block:
-    - name: build image 
-      include_tasks: build-image.yml
-      tags: always 
+- name: Create Device Group 
+  import_tasks: create-device-group.yml
+  tags: 
+  - create_device_group
+
+- name: Build Image 
+  import_tasks: build-image.yml
+  tags: 
+  - build_image
+
+- name: Get Build Status 
+  import_tasks: get-build-status.yml
+  tags: 
+  - get_build_status
+  
+- name: Download the latest iso build
+  import_tasks: download-iso.yml
+  tags: 
+  - download_latest_iso

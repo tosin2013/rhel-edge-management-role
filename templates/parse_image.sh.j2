@@ -1,0 +1,11 @@
+#!/bin/bash 
+
+PACKAGES=${1}
+
+rm /tmp/packages.txt
+for p in  $(echo $PACKAGES); do
+  echo '{"name": "'$p'"}' | tee -a  /tmp/packages.txt
+done
+IMAGE_PACKAGES=$(cat  /tmp/packages.txt  | jq --slurp .)
+echo ${IMAGE_PACKAGES} | sed "s/'//g"
+echo ${IMAGE_PACKAGES} | sed "s/'//g" >/tmp/packages_escaped.txt

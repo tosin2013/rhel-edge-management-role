@@ -1,0 +1,20 @@
+{
+  "name": "{{ image_name }}",
+  "version": 0,
+  "description": "{{ description }}",
+  "distribution": "{{ distribution }}",
+  "imageType": "rhel-edge-installer",
+  "packages": {{ parsed_images }},
+  "outputTypes": [
+    "rhel-edge-installer",
+    "rhel-edge-commit"
+  ],
+  "commit": {
+    "arch": "{{ arch }}",
+  },
+  "installer": {
+    "username": "{{ username}}",
+    "sshkey": "{{ ssh_pub_key }}",
+    "thirdPartyRepositories": []
+  }
+}

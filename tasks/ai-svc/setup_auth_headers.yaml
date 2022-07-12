@@ -6,9 +6,9 @@
       tmp_auth_header_fact:
         Authorization: "Basic {{ (rh_authentication_basic_username + ':' + rh_authentication_basic_password)|b64encode }}"
 
-  #- name: Set up headers for Username/Password authentication
-  #  set_fact:
-  #    compiled_uri_headers: "{{ compiled_uri_headers | combine(tmp_auth_header_fact) }}"
+  - name: Set up headers for Username/Password authentication
+    set_fact:
+      compiled_uri_headers: "{{ compiled_uri_headers | combine(tmp_auth_header_fact) }}"
 
 - name: Set up Bearer Token authentication
   block:
@@ -35,6 +35,10 @@
     set_fact:
       tmp_auth_header_fact:
         Authorization: "Bearer {{ rh_offline_authentication_api_bearer_token }}"
+
+  - name: Set up headers for Bearer authentication
+    set_fact:
+      compiled_uri_headers: "{{ compiled_uri_headers | combine(tmp_auth_header_fact) }}"
 
   - name: Print ssh key variable
     ansible.builtin.debug:

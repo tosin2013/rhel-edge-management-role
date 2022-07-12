@@ -1,0 +1,27 @@
+---
+- name: Create device Group
+  block:
+  - name: Copying over device-group.json
+    template:
+      src: device-group.json.j2
+      dest:  "/tmp/device-group.json"
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      remote_src: no
+      mode: 0755
+
+  - name: Create device group 
+    uri:
+      headers:
+        Content-Type: application/json
+      user: "{{ rh_authentication_basic_username }}"
+      password: "{{ rh_authentication_basic_password }}"
+      force_basic_auth: true
+      url: https://console.redhat.com/api/edge/v1/device-groups/
+      body_format: json
+      method: POST
+      body: "{{ lookup('file', '/tmp/device-group.json') }}"
+      status_code: 201
+
+  tags: 
+  - create_device_group

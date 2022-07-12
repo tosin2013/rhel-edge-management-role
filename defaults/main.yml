@@ -1,6 +1,5 @@
 ---
 # defaults file for rhel-edge-mangement-role
-generated_asset_directory: ./.generated
 
 rh_offline_authentication_api_bearer_token:  rh_api_offline_token 
 rh_authentication_basic_username:  username 
@@ -20,9 +19,9 @@ create_image: true
 ## image atrributes
 image_name: "test-image"
 username: "admin"
-distribution: "rhel-85"
+distribution: "rhel-86"
 description: "sample description"
-packages: "curl net-tools podman vim tar bind-utils git"
+packages: "curl net-tools podman tar bind-utils git"
 arch: "x86_64"
 
 #########################################################
@@ -33,4 +32,8 @@ rhc_activation_key: "your_rhc_activation_key"
 #########################################################
 ## optional variables
 ## osinfo-query os
-os_variant: "rhel8.5"
+os_variant: "rhel8.6"
+
+#########################################################
+## Dont need to change 
+compiled_uri_headers: {}

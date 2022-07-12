@@ -1,0 +1,43 @@
+---
+- name: Get status of image build
+  block:
+  - name: Get Build Status  
+    uri:
+      headers:
+        Content-Type: application/json
+      user: "{{ rh_authentication_basic_username }}"
+      password: "{{ rh_authentication_basic_password }}"
+      force_basic_auth: true
+      url: https://console.redhat.com/api/edge/v1/images?sort_by=distribution&name={{ image_name }}
+      return_content: yes
+      body_format: json
+    register: build_id_result 
+
+  - name: Get Build ID
+    ansible.builtin.debug:
+       msg: "{{  build_id_result |community.general.json_query('*.data[*].Status') }}"
+
+  - name: Set the Build ID fact
+    ansible.builtin.set_fact:
+      build_id: "{{ build_id_result |community.general.json_query('*.data[*].Status') }}"
+   
+  - name: Get Build ID
+    ansible.builtin.debug:
+      var: build_id
+
+  - name:  Waiting For image build to complete
+    uri:
+      headers:
+        Content-Type: application/json
+      user: "{{ rh_authentication_basic_username }}"
+      password: "{{ rh_authentication_basic_password }}"
+      force_basic_auth: true
+      url: https://console.redhat.com/api/edge/v1/images?sort_by=distribution&name={{ image_name }}
+      return_content: yes
+      body_format: json
+    register: build_id_result 
+    until:  "{{ build_id_result |community.general.json_query('*.data[*].Status') }} is search('SUCCESS')"
+    retries: 50
+    delay: 360
+  tags: 
+  - get_build_status

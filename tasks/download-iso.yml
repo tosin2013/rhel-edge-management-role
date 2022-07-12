@@ -1,0 +1,38 @@
+---
+- name: Download Latest iso image 
+  block:
+  - name: Download Latest ISO image
+    uri:
+      headers:
+        Content-Type: application/json
+      user: "{{ rh_authentication_basic_username }}"
+      password: "{{ rh_authentication_basic_password }}"
+      force_basic_auth: true
+      url: https://console.redhat.com/api/edge/v1/images?sort_by=-created_at&name={{ image_name }}
+      return_content: yes
+      body_format: json
+    register: latest_iso_image 
+
+  - name: Get Latest ISO IMAGE
+    ansible.builtin.debug:
+       msg: "{{  latest_iso_image |community.general.json_query('*.data[0].Installer.ImageBuildISOURL') }}"
+
+  - name: Get the ISO URL
+    ansible.builtin.set_fact:
+      latest_iso_image_url: "{{ latest_iso_image |community.general.json_query('*.data[0].Installer.ImageBuildISOURL') }}"
+
+  - name: Get the CreatedAt by timestamp
+    ansible.builtin.set_fact:
+      created_at_timestamp: "{{ latest_iso_image |community.general.json_query('*.data[0].Installer.CreatedAt')}}"
+
+  - name: Get Latest ISO IMAGE
+    ansible.builtin.debug:
+       msg: "Downlaoding {{latest_iso_image_url[0]}} to /tmp/{{ image_name }}.iso"
+
+  - name: Download  ISO
+    get_url:
+      url: "{{ latest_iso_image_url[0] }}"
+      dest: "/tmp/{{ image_name  }}.iso"
+
+  tags: 
+  - download_latest_iso

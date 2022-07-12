@@ -1,19 +1,60 @@
 ---
-- name: Create device 
+- name: Create device Group
   block:
-  - name: Copying over device-group.yaml
+  - name: Copying over parse_image.sh 
     template:
-      src: device-group.yaml.j2
-      dest:  "/tmp/device-group.yaml"
+      src: parse_image.sh.j2
+      dest:  "/tmp/parse_image.sh"
       owner: "{{ ansible_user }}"
       group: "{{ ansible_user }}"
       remote_src: no
       mode: 0755
-  - name: Create device group 
+
+- name: Parse images
+  command: "sh /tmp/parse_image.sh '{{packages}}'"
+  register: parsed_images_result
+
+- name: Print results for image parse
+  ansible.builtin.set_fact:
+    parsed_images: "{{ lookup('file', '/tmp/packages_escaped.txt') }}"
+
+
+- name: Get parsed images output
+  ansible.builtin.debug:
+    var: parsed_images
+
+- name: Create device Group
+  block:
+  - name: Copying over image-build.json.j2
+    template:
+      src: image-build.json.j2
+      dest:  "/tmp/image-build.json"
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      remote_src: no
+      mode: 0755
+
+  - name: "Read a file content"
+    shell: |
+      cat /tmp/image-build.json
+    register: file_content
+
+  - name: "Print the file content to a console"
+    debug:
+      msg: "{{ file_content.stdout }}"
+
+ # Help me out here 
+  - name: Start  Image Build 
     uri:
-      headers: "{{ tmp_auth_header_fact }}"
-      url: https://console.redhat.com/api/edge/v1/device-groups/
+      headers:
+        Content-Type: application/json
+      user: "{{ rh_authentication_basic_username }}"
+      password: "{{ rh_authentication_basic_password }}"
+      force_basic_auth: true
+      url: https://console.redhat.com/api/edge/v1/images/
       body_format: json
       method: POST
-      body: "{{ lookup('file', '/tmp/device-group.yaml') }}"
-      status_code: 201
+      body: "{{ lookup('file', '/tmp/image-build.json') }}"
+      status_code: 200
+  tags: 
+  - build_image
