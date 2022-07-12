@@ -60,7 +60,7 @@
   - name: Download kickstart
     get_url:
       url: "{{ kickstart_path }}"
-      dest: "{{ iso_download_directory }}/kickstart.ks"
+      dest: "{{ iso_download_directory }}/fleet_kspost.txt
 
   - name: Run fleet-management container 
     containers.podman.podman_container:
