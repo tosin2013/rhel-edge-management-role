@@ -56,7 +56,12 @@
         RHC_ORGID={{ rhc_org_id }}
         RHC_ACTIVATION_KEY={{ rhc_activation_key }}
         RHC_FIRSTBOOT=true
-      
+
+  - name: Download kickstart
+    get_url:
+      url: "{{ kickstart_path }}"
+      dest: "{{ iso_download_directory }}/{{ image_name  }}.iso"
+
   - name: Run fleet-management container 
     containers.podman.podman_container:
       name: fleet-iso-util-1
