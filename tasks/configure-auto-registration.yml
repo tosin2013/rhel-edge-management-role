@@ -68,9 +68,12 @@
       image: quay.io/fleet-management/fleet-iso-util:latest
       restart_policy: always
       state: started
+      interactive: yes
+      rm: yes
       volume:
         -  "{{ iso_download_directory }}/:/isodir:Z"
-
+      detach: no
+      
   - name: Copy fleet source iso
     copy:
       src: "{{ iso_download_directory }}/fleet_source.iso"
@@ -81,6 +84,7 @@
     ansible.builtin.file:
       path: "{{ iso_download_directory }}/fleet_source.iso"
       state: absent
+
 
   tags:
   - configure_auto_registration
