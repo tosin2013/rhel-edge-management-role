@@ -23,13 +23,13 @@ Type  | Description  | Default Value
 rh_offline_authentication_api_bearer_token | offline Token for API Acccess |rh_api_offline_token 
 rh_authentication_basic_username| RHEL username | username 
 rh_authentication_basic_password| RHEL Password |password 
-ssh_pub_key| Public SSH key |"$HOME/.ssh/id_rsa.pub"
+ssh_pub_key| Public SSH key | "ssh-rsa XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 device_group_name | Name of device Group |"my-device-name-group"
 image_name | Name of image  |"test-image"
 username | Name of user of target edge device |"admin"
 distribution | RHEL Build distribution |"rhel-86"
 description | Descrition of image |"sample description"
-packages | package list tio be installed on image |"curl net-tools podman tar bind-utils git"
+packages | example package list to be installed on image |"curl net-tools podman tar bind-utils git"
 arch |RHEL architecture for taget enviornments  |"x86_64"
 rhc_org_id | RHEL ORG ID used to register devices |"your_rhc_org_id"
 rhc_activation_key | RHEL activation Key used to register devices |"your_rhc_activation_key"
@@ -42,11 +42,12 @@ Dependencies
 
 Example Playbook
 ----------------
----
+```
 - hosts: localhost
   remote_user: root
   roles:
     - rhel-edge-mangement-role
+```
 
 How-To 
 --------
