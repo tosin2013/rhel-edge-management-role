@@ -14,6 +14,10 @@ Requirements
 ```bash
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa
 ```
+* install ansible collections
+```
+ansible-galaxy collection install -r collections/requirements.yml
+```
 
 Role Variables
 --------------
@@ -55,39 +59,39 @@ How-To
 To Deploy 
 
 ```
-ansible-playbook -i inventory myplaybook.yml 
+ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml"
 ```
 
 Create device group on the redhat console website
 > https://console.redhat.com/edge/fleet-management
 ```
- ansible-playbook -i inventory myplaybook.yml  -t create_device_group
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" - -t create_device_group
 ```
 
 
 Create and build rhel image on redhat console.
  > https://console.redhat.com/edge/manage-images
 ```
- ansible-playbook -i inventory myplaybook.yml  -t build_image
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t build_image
 ```
 
 
 Wait for build to complete
  > https://console.redhat.com/edge/manage-images
 ```
- ansible-playbook -i inventory myplaybook.yml  -t get_build_status
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t get_build_status
 ```
 
 Download ISO from redhat console
  > https://console.redhat.com/edge/manage-images
 ```
- ansible-playbook -i inventory myplaybook.yml  -t download_latest_iso
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t download_latest_iso
 ```
 
 Auto register vms so they will populate on 
  > https://console.redhat.com/insights/inventory/
 ```
- ansible-playbook -i inventory myplaybook.yml  -t configure_auto_registration
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t configure_auto_registration
 ```
 
 ## Currently WIP

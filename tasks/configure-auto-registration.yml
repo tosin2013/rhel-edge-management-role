@@ -49,6 +49,13 @@
       dest: "{{ iso_download_directory }}/fleet_source.iso"
       remote_src: yes
 
+  - name: Creating a file with content
+    copy:
+      dest: "{{ iso_download_directory }}/fleet_rhc_vars"
+      content: |
+        RHC_ORGID={{ rhc_org_id }}
+        RHC_ACTIVATION_KEY={{ rhc_activation_key }}
+      
   - name: Run fleet-management container 
     containers.podman.podman_container:
       name: fleet-iso-util-1
@@ -57,14 +64,17 @@
       state: started
       volume:
         -  "{{ iso_download_directory }}/:/isodir:Z"
-      env:
-        RHC_ORGID: "{{ rhc_org_id }}"
-        RHC_ACTIVATION_KEY: "{{ rhc_activation_key }}"
 
   - name: Copy fleet source iso
     copy:
       src: "{{ iso_download_directory }}/fleet_source.iso"
       dest: "{{ iso_download_directory }}/{{ image_name }}.iso"
       remote_src: yes
+
+  - name: Remove fleet source iso 
+    ansible.builtin.file:
+      path: "{{ iso_download_directory }}/fleet_source.iso"
+      state: absent
+
   tags:
   - configure_auto_registration
