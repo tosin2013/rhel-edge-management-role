@@ -41,7 +41,7 @@
 
   - name: fail when iso does not exist
     fail: 
-      msg: {{ workspace}}/{{ image_name  }}.iso does not exist
+      msg: "{{ workspace}}/{{ image_name  }}.iso does not exist"
     when: check_if_iso_exists.stat.exists == false
 
   - name: Copy fleet source iso
