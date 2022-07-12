@@ -85,7 +85,7 @@ Download ISO from redhat console
 ```
 ## Currently WIP
 * Update images
-* - Auto register vms so they will populate on https://console.redhat.com/insights/inventory/
+* Auto register vms so they will populate on https://console.redhat.com/insights/inventory/
 * custom kickstart integration
 
 API Documentation
