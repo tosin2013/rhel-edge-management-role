@@ -1,6 +1,14 @@
 ---
-iso_download_directory: "/opt/generated_iso"
-workspace: "/opt/workspace"
+#########################################################
+## Direcoties
+### For Tower 
+## for workstation: iso_download_directory: "/opt/generated_iso"
+workspace: "/var/lib/awx/projects/generated_iso"
+
+### For Tower 
+## for workstation: workspace: "/opt/lib/aws/projects/workspace"
+workspace: "/var/lib/awx/projects/workspace"
+
 # defaults file for rhel-edge-mangement-role
 rh_offline_authentication_api_bearer_token:  rh_api_offline_token 
 rh_authentication_basic_username:  username 
