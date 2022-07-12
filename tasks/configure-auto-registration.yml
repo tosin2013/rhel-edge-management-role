@@ -1,0 +1,70 @@
+---
+- name: Configure auto registration 
+  block:
+  - name: Login to registry.redhat.io
+    containers.podman.podman_login:
+      username: "{{ rh_authentication_basic_username }}"
+      password: '{{ rh_authentication_basic_password }}'
+      registry: registry.redhat.io
+
+  - name: Check if iso downlaod directory exists
+    stat:
+      path: "{{ iso_download_directory }}"
+    register: download_dir_exists
+
+  - name: Check for  iso download directory
+    debug:
+      msg: "The {{ iso_download_directory }} exists"
+    when: download_dir_exists.stat.exists
+
+  - name: Creates directory
+    file:
+      path: "{{ iso_download_directory }}"
+      state: directory
+    when: download_dir_exists.stat.exists == false
+
+  - name: Setting permissions on data folder
+    ansible.builtin.command:  setfacl -m u:26:-wx {{ iso_download_directory }}
+    become: yes
+    become_user: root
+
+  - name: Check if iso exists
+    stat:
+      path: "/tmp/{{ image_name  }}.iso"
+    register: check_if_iso_exists
+
+  - name: Does the iso exisit
+    debug:
+      msg: "The iso exists"
+    when: check_if_iso_exists.stat.exists
+
+  - name: fail when iso does not exist
+    fail: 
+      msg: /tmp/{{ image_name  }}.iso does not exist
+    when: check_if_iso_exists.stat.exists == false
+
+  - name: Copy fleet source iso
+    copy:
+      src: "/tmp/{{ image_name }}.iso"
+      dest: "{{ iso_download_directory }}/fleet_source.iso"
+      remote_src: yes
+
+  - name: Run fleet-management container 
+    containers.podman.podman_container:
+      name: fleet-iso-util-1
+      image: quay.io/fleet-management/fleet-iso-util:latest
+      restart_policy: always
+      state: started
+      volume:
+        -  "{{ iso_download_directory }}/:/isodir:Z"
+      env:
+        RHC_ORGID: "{{ rhc_org_id }}"
+        RHC_ACTIVATION_KEY: "{{ rhc_activation_key }}"
+
+  - name: Copy fleet source iso
+    copy:
+      src: "{{ iso_download_directory }}/fleet_source.iso"
+      dest: "{{ iso_download_directory }}/{{ image_name }}.iso"
+      remote_src: yes
+  tags:
+  - configure_auto_registration

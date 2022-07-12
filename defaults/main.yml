@@ -1,6 +1,7 @@
 ---
-# defaults file for rhel-edge-mangement-role
+iso_download_directory: "/opt/generated_iso"
 
+# defaults file for rhel-edge-mangement-role
 rh_offline_authentication_api_bearer_token:  rh_api_offline_token 
 rh_authentication_basic_username:  username 
 rh_authentication_basic_password:  password 
@@ -8,7 +9,6 @@ rh_authentication_basic_password:  password
 #########################################################
 ## Required Files
 ssh_pub_key: "ssh-rsa XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-"
 
 #########################################################
 ## required variables

@@ -22,3 +22,9 @@
   import_tasks: download-iso.yml
   tags: 
   - download_latest_iso
+  
+  
+- name: Configure Auto registration
+  import_tasks: configure-auto-registration.yml
+  tags: 
+  - configure_auto_registration

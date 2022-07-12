@@ -81,11 +81,17 @@ Wait for build to complete
 Download ISO from redhat console
  > https://console.redhat.com/edge/manage-images
 ```
- ansible-playbook -i inventory myplaybook.yml  -t build_image
+ ansible-playbook -i inventory myplaybook.yml  -t download_latest_iso
 ```
+
+Auto register vms so they will populate on 
+ > https://console.redhat.com/insights/inventory/
+```
+ ansible-playbook -i inventory myplaybook.yml  -t configure_auto_registration
+```
+
 ## Currently WIP
 * Update images
-* Auto register vms so they will populate on https://console.redhat.com/insights/inventory/
 * custom kickstart integration
 
 API Documentation
