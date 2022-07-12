@@ -88,12 +88,17 @@ Download ISO from redhat console
 * - Auto register vms so they will populate on https://console.redhat.com/insights/inventory/
 * custom kickstart integration
 
+API Documentation
+-------
+https://console.redhat.com/docs/api/edge
 
 Links
 -------
 * https://github.com/tosin2013/rhel-edge-management
 * [Create RHEL for Edge images and configure automated management](https://access.redhat.com/documentation/en-us/edge_management/2022/html-single/create_rhel_for_edge_images_and_configure_automated_management/index#doc-wrapper)
 * [Working with systems in the edge management application](https://access.redhat.com/documentation/en-us/edge_management/2022/html-single/working_with_systems_in_the_edge_management_application/index)
+
+
 License
 -------
 
