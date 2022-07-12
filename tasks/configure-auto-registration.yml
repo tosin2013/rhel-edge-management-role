@@ -21,6 +21,7 @@
     file:
       path: "{{ iso_download_directory }}"
       state: directory
+      mode: '0777'
     when: download_dir_exists.stat.exists == false
 
   - name: Setting permissions on data folder
@@ -73,7 +74,7 @@
       volume:
         -  "{{ iso_download_directory }}/:/isodir:Z"
       detach: no
-      
+
   - name: Copy fleet source iso
     copy:
       src: "{{ iso_download_directory }}/fleet_source.iso"
