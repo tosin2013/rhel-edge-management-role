@@ -3,7 +3,7 @@
 ## Direcoties
 ### For Tower 
 ## for workstation: iso_download_directory: "/opt/generated_iso"
-workspace: "/var/lib/awx/projects/generated_iso"
+iso_download_directory: "/var/lib/awx/projects/generated_iso"
 
 ### For Tower 
 ## for workstation: workspace: "/opt/lib/aws/projects/workspace"
