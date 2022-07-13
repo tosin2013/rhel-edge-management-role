@@ -33,6 +33,7 @@
     get_url:
       url: "{{ latest_iso_image_url[0] }}"
       dest: "/tmp/{{ image_name  }}.iso"
+    delegate_to: localhost
 
   tags: 
   - download_latest_iso

@@ -9,6 +9,7 @@
       group: "{{ ansible_user }}"
       remote_src: no
       mode: 0755
+    delegate_to: localhost
 
 - name: Parse images
   command: "sh {{ workspace}}/parse_image.sh '{{packages}}'"
@@ -33,6 +34,7 @@
       group: "{{ ansible_user }}"
       remote_src: no
       mode: 0755
+    delegate_to: localhost
 
   - name: "Read a file content"
     shell: |
