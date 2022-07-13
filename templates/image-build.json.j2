@@ -4,7 +4,25 @@
   "description": "{{ description }}",
   "distribution": "{{ distribution }}",
   "imageType": "rhel-edge-installer",
-  "packages": {{ parsed_images }},
+  "packages": [{
+        "name": "git"
+    }, {
+        "name": "pcp"
+    }, {
+        "name": "pcp-zeroconf"
+    }, {
+        "name": "curl"
+    }, {
+        "name": "vim-minimal"
+    }, {
+        "name": "podman"
+    }, {
+        "name": "slirp4netns"
+    }, {
+        "name": "redis"
+    }, {
+        "name": "git"
+    }],
   "outputTypes": [
     "rhel-edge-installer",
     "rhel-edge-commit"
