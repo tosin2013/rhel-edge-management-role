@@ -3,11 +3,11 @@
 ## Direcoties
 ### For Tower 
 ## for workstation: iso_download_directory: "/opt/generated_iso"
-iso_download_directory: "/var/lib/awx/projects/generated_iso"
+iso_download_directory: "/tmp/generated_iso"
 
 ### For Tower 
 ## for workstation: workspace: "/opt/lib/aws/projects/workspace"
-workspace: "/var/lib/awx/projects/workspace"
+workspace: "/tmp/workspace"
 
 # defaults file for rhel-edge-mangement-role
 rh_offline_authentication_api_bearer_token:  rh_api_offline_token 
