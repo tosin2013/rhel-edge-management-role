@@ -129,7 +129,7 @@ vcenter_datacenter: Datacenter1
 vcenter_datastore: datastore
 vmware_folder: 'edge-deployments'
 vmware_network: "VM Network"
-vmware_hostname: {{ image_name }}
+vmware_hostname: "{{ image_name }}"
 iso_path_loc: "ISOs/{{ image_name }}.iso"
 iso_src: "/tmp/{{ image_name }}.iso"
 EOF
