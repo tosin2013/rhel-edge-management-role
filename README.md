@@ -50,7 +50,7 @@ Example Playbook
 - hosts: localhost
   remote_user: root
   roles:
-    - rhel-edge-mangement-role
+    - rhel-edge-management-role
 ```
 
 Example Vars

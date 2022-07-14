@@ -32,7 +32,12 @@ distribution: "rhel-86"
 description: "sample description"
 packages: "curl net-tools podman tar bind-utils git"
 arch: "x86_64"
-kickstart_path: "https://raw.githubusercontent.com/Red-Hat-SE-RTO/rhel-fleet-management/main/inventories/lab/applications/quarkuscoffeeshop-majestic-monolith-fleet-manger/fleet_kspost.txt"
+
+#########################################################
+## current kickstart variables
+# https://github.com/redhatinsights/edge-api/blob/main/templates/templatekickstart.ks
+enable_kickstart: true
+default_kickstart_url: "https://raw.githubusercontent.com/red-hat-se-rto/rhel-fleet-management/main/inventories/lab/applications/quarkuscoffeeshop-majestic-monolith-fleet-manger/fleet.kspost"
 
 #########################################################
 ## automated management variables
@@ -42,7 +47,9 @@ rhc_activation_key: "your_rhc_activation_key"
 #########################################################
 ## optional variables
 ## osinfo-query os
-os_variant: "rhel8.6"
+os_variant: "rhel8.5"
+
+
 
 #########################################################
 ## Dont need to change 
