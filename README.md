@@ -122,12 +122,14 @@ rhc_activation_key: "your_rhc_activation_key"
 ## image atrributes
 ## Vmware Settings
 ## https://github.com/Red-Hat-SE-RTO/rhel-egde-on-vmware/blob/main/defaults/main.yml
-vcenter_hostname: "vsphere@example.com"
+vcenter_hostname: "vsphere.example.com"
 vcenter_username: "administrator@vsphere.local"
 vcenter_password: "P@$$w0rD"
 vcenter_datacenter: Datacenter1
+vcenter_datastore: datastore
 vmware_folder: 'edge-deployments'
 vmware_network: "VM Network"
+vmware_hostname: {{ image_name }}
 iso_path_loc: "ISOs/{{ image_name }}.iso"
 iso_src: "/tmp/{{ image_name }}.iso"
 EOF
