@@ -3,3 +3,4 @@ collections:
 - ansible.posix
 - containers.podman
 - community.general
+- community.vmware

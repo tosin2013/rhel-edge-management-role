@@ -56,10 +56,40 @@ Example Playbook
   remote_user: root
   roles:
     - rhel-edge-management-role
+    - rhel-egde-on-vmware
 ```
 
 Example Vars
 ------------
+```
+cat >your_vars_vmware_test.yml<<EOF
+---
+rh_offline_authentication_api_bearer_token: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXc"
+rh_authentication_basic_username:  login@example.com
+rh_authentication_basic_password:  yourpassword 
+
+ssh_pub_key: "ssh-rsa XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+
+create_device_name_group: true
+device_group_name: "my-device-name-group"
+create_image: true
+
+
+#########################################################
+## image atrributes
+image_name: "imagename"
+username: "admin"
+distribution: "rhel-86"
+description: "sample description"
+packages: 'curl net-tools podman tar bind-utils git'
+arch: "x86_64"
+
+rhc_org_id: "your_rhc_org_id"
+rhc_activation_key: "your_rhc_activation_key"
+EOF
+```
+
 ```
 cat >your_vars.yml<<EOF
 ---
@@ -86,6 +116,20 @@ arch: "x86_64"
 
 rhc_org_id: "your_rhc_org_id"
 rhc_activation_key: "your_rhc_activation_key"
+
+
+#########################################################
+## image atrributes
+## Vmware Settings
+## https://github.com/Red-Hat-SE-RTO/rhel-egde-on-vmware/blob/main/defaults/main.yml
+vcenter_hostname: "vsphere@example.com"
+vcenter_username: "administrator@vsphere.local"
+vcenter_password: "P@$$w0rD"
+vmware_datastore: Datacenter1
+vmware_folder: 'edge-deployments'
+vmware_network: "VM Network"
+iso_path_loc: "ISOs/{{ image_name }}.iso"
+iso_src: "/tmp/{{ image_name }}.iso"
 EOF
 ```
 
