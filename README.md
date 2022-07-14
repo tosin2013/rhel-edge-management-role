@@ -18,6 +18,10 @@ ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa
 ```
 ansible-galaxy collection install -r collections/requirements.yml
 ```
+* install ansible roles
+```
+ansible-galaxy role install -r roles/requirements.yml
+```
 
 Role Variables
 --------------
@@ -37,8 +41,9 @@ packages | example package list to be installed on image |"curl net-tools podman
 arch |RHEL architecture for taget enviornments  |"x86_64"
 rhc_org_id | RHEL ORG ID used to register devices |"your_rhc_org_id"
 rhc_activation_key | RHEL activation Key used to register devices |"your_rhc_activation_key"
-os_variant | OS variant target for KVM testing |"rhel8.6"
-
+os_variant "rhel8.6"
+enable_kickstart| Add custom kickstart to deployment | true
+default_kickstart_url| Default kickstart url  |https://raw.githubusercontent.com/red-hat-se-rto/rhel-fleet-management/main/inventories/lab/applications/quarkuscoffeeshop-majestic-monolith-fleet-manger/fleet.kspost"
 Dependencies
 ------------
 
