@@ -125,7 +125,7 @@ rhc_activation_key: "your_rhc_activation_key"
 vcenter_hostname: "vsphere@example.com"
 vcenter_username: "administrator@vsphere.local"
 vcenter_password: "P@$$w0rD"
-vmware_datastore: Datacenter1
+vcenter_datacenter: Datacenter1
 vmware_folder: 'edge-deployments'
 vmware_network: "VM Network"
 iso_path_loc: "ISOs/{{ image_name }}.iso"
