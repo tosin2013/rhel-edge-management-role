@@ -29,6 +29,9 @@ Role Variables
 Type  | Description  | Default Value
 --|---|--
 rh_offline_authentication_api_bearer_token | offline Token for API Acccess |rh_api_offline_token 
+iso_download_directory | Default iso download directory | "/tmp/generated_iso"
+workspace | Default workspace for fleet manager | "/tmp/workspace"
+remove_workspace | Default workspace directory | true
 rh_authentication_basic_username| RHEL username | username 
 rh_authentication_basic_password| RHEL Password |password 
 ssh_pub_key| Public SSH key | "ssh-rsa XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
