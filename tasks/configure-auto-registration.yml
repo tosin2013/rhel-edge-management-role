@@ -64,6 +64,17 @@
       dest: "{{ workspace }}/template.ks"
     when: enable_kickstart == true
 
+  - name: Setting host facts using complex arguments
+    ansible.builtin.set_fact:
+      random_hostname:  lookup('community.general.random_string', length=5)
+
+  - name: Replace hostname
+    ansible.builtin.replace:
+      path: "{{ workspace }}/template.ks"
+      regexp: '(CHANGE_HOSTNAME)'
+      replace: "{{ image_name }}-{{ random_hostname }}"
+    when: enable_kickstart == true
+
   - name: Replace username
     ansible.builtin.replace:
       path: "{{ workspace }}/template.ks"
