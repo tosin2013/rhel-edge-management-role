@@ -61,14 +61,28 @@
   - name: Download kickstart
     get_url:
       url: "{{ default_kickstart_url }}"
-      dest: "{{ workspace }}/fleet.kspost"
+      dest: "{{ workspace }}/template.ks"
     when: enable_kickstart == true
 
+  - name: Replace username
+    ansible.builtin.replace:
+      path: "{{ workspace }}/template.ks"
+      regexp: '(\s+)your_username(\s+.*)?$'
+      replace: '\1{{ rh_authentication_basic_username }}\2'
+    when: enable_kickstart == true
+
+  - name: Replace password
+    ansible.builtin.replace:
+      path: "{{ workspace }}/template.ks"
+      regexp: '(\s+)your_password(\s+.*)?$'
+      replace: '\1{{ rh_authentication_basic_password }}\2'
+    when: enable_kickstart == true
+    
   - name: Run fleet-management container 
     containers.podman.podman_container:
       name: fleet-iso-util-1
       image: quay.io/fleet-management/fleet-iso-util:latest
-      restart_policy: always
+      restart_policy: no
       state: started
       interactive: yes
       rm: yes
@@ -81,13 +95,14 @@
     containers.podman.podman_container:
       name: fleet-iso-util-1
       image: quay.io/fleet-management/fleet-iso-util:latest
-      restart_policy: always
+      restart_policy: no
       state: started
       interactive: yes
       rm: yes
       volume:
         -  "{{ workspace }}/:/isodir:Z"
       detach: no
+      command: "/usr/local/bin/fleetkick.sh -k template.ks"
     when: enable_kickstart == true
 
   - name: Copy fleet source iso
@@ -101,6 +116,10 @@
       path: "{{ workspace }}/fleet_source.iso"
       state: absent
 
-
+  - name: Recursively workspace directory
+    ansible.builtin.file:
+      path: "{{ workspace }}"
+      state: absent
+    when: remove_workspace == true
   tags:
   - configure_auto_registration
