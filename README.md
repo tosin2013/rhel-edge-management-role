@@ -135,7 +135,7 @@ vmware_folder: 'edge-deployments'
 vcenter_network: "VM Network"
 vmware_hostname: "{{ image_name }}"
 iso_path_loc: "ISOs/{{ image_name }}.iso"
-iso_src: "/tmp/{{ image_name }}.iso"
+iso_src: "/tmp/generated_iso/{{ image_name }}.iso"
 EOF
 ```
 
@@ -179,6 +179,17 @@ Auto register vms so they will populate on
 ```
  ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t configure_auto_registration
 ```
+
+Deploy ISOs
+----------
+Start VM on vmware
+> for custom isos user the append _fleet_out.iso to  `iso_path_loc` and `iso_src`
+```
+$ ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t vmware_create_folder,vmware_check_for_iso,vmware_upload_iso  -vv
+ 
+$ ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t vmware_deploy_vms -vv
+```
+
 
 ## Currently WIP
 * Update images
