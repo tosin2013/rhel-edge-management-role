@@ -68,21 +68,20 @@
     ansible.builtin.replace:
       path: "{{ workspace }}/template.ks"
       regexp: '(\s+)your_username(\s+.*)?$'
-      replace: '\1{{ rh_authentication_basic_username }}\2'
+      replace: "{{ rh_authentication_basic_username }}"
     when: enable_kickstart == true
 
   - name: Replace password
     ansible.builtin.replace:
       path: "{{ workspace }}/template.ks"
       regexp: '(\s+)your_password(\s+.*)?$'
-      replace: '\1{{ rh_authentication_basic_password }}\2'
+      replace: "{{ rh_authentication_basic_password }}"
     when: enable_kickstart == true
     
   - name: Run fleet-management container 
     containers.podman.podman_container:
       name: fleet-iso-util-1
       image: quay.io/fleet-management/fleet-iso-util:latest
-      restart_policy: no
       state: started
       interactive: yes
       rm: yes
@@ -95,7 +94,6 @@
     containers.podman.podman_container:
       name: fleet-iso-util-1
       image: quay.io/fleet-management/fleet-iso-util:latest
-      restart_policy: no
       state: started
       interactive: yes
       rm: yes
