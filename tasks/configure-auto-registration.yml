@@ -60,7 +60,7 @@
 
   - name: Download kickstart
     get_url:
-      url: "{{ kickstart_path }}"
+      url: "{{ default_kickstart_url }}"
       dest: "{{ workspace }}/fleet.kspost"
     when: enable_kickstart == true
 
