@@ -114,7 +114,7 @@
       volume:
         -  "{{ workspace }}/:/isodir:Z"
       detach: no
-      command: "/usr/local/bin/fleetkick.sh -k template.ks"
+      command: "/usr/local/bin/fleetkick.sh -k {{ workspace }}/template.ks"
     when: enable_kickstart == true
 
   - name: Copy fleet source iso
