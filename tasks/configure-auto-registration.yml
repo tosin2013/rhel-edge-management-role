@@ -31,7 +31,7 @@
 
   - name: Check if iso exists
     stat:
-      path: "{{ workspace}}/{{ image_name  }}.iso"
+      path: "{{ iso_download_directory }}/{{ image_name  }}.iso"
     register: check_if_iso_exists
 
   - name: Does the iso exisit
@@ -41,18 +41,18 @@
 
   - name: fail when iso does not exist
     fail: 
-      msg: "{{ workspace}}/{{ image_name  }}.iso does not exist"
+      msg: "{{ iso_download_directory }}/{{ image_name  }}.iso does not exist"
     when: check_if_iso_exists.stat.exists == false
 
   - name: Copy fleet source iso
     copy:
-      src: "{{ workspace}}/{{ image_name }}.iso"
-      dest: "{{ iso_download_directory }}/fleet_source.iso"
+      src: "{{ iso_download_directory }}/{{ image_name }}.iso"
+      dest: "{{ workspace }}/fleet_source.iso"
       remote_src: yes
 
   - name:  Populating fleet_rhc_vars
     copy:
-      dest: "{{ iso_download_directory }}/fleet_rhc_vars"
+      dest: "{{ workspace }}/fleet_rhc_vars"
       content: |
         RHC_ORGID={{ rhc_org_id }}
         RHC_ACTIVATION_KEY={{ rhc_activation_key }}
@@ -61,7 +61,7 @@
   - name: Download kickstart
     get_url:
       url: "{{ kickstart_path }}"
-      dest: "{{ iso_download_directory }}/fleet.kspost"
+      dest: "{{ workspace }}/fleet.kspost"
     when: enable_kickstart == true
 
   - name: Run fleet-management container 
@@ -73,7 +73,7 @@
       interactive: yes
       rm: yes
       volume:
-        -  "{{ iso_download_directory }}/:/isodir:Z"
+        -  "{{ workspace }}/:/isodir:Z"
       detach: no
     when: enable_kickstart == false
     
@@ -86,19 +86,19 @@
       interactive: yes
       rm: yes
       volume:
-        -  "{{ iso_download_directory }}/:/isodir:Z"
+        -  "{{ workspace }}/:/isodir:Z"
       detach: no
     when: enable_kickstart == true
 
   - name: Copy fleet source iso
     copy:
-      src: "{{ iso_download_directory }}/fleet_source.iso"
+      src: "{{ workspace }}/fleet_source.iso"
       dest: "{{ iso_download_directory }}/{{ image_name }}_fleet_out.iso"
       remote_src: yes
 
   - name: Remove fleet source iso 
     ansible.builtin.file:
-      path: "{{ iso_download_directory }}/fleet_source.iso"
+      path: "{{ workspace }}/fleet_source.iso"
       state: absent
 
 
