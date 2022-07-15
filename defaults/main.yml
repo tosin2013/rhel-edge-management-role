@@ -50,6 +50,10 @@ rhc_activation_key: "your_rhc_activation_key"
 ## osinfo-query os
 os_variant: "rhel8.5"
 
+#########################################################
+## Completly override kickstart
+## kickstart_file: template.ks
+kickstart_file: fleet_kspost.txt
 
 
 #########################################################

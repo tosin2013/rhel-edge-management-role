@@ -57,11 +57,12 @@
         RHC_ORGID={{ rhc_org_id }}
         RHC_ACTIVATION_KEY={{ rhc_activation_key }}
         RHC_FIRSTBOOT=true
+        INSIGHTS_DISPLAY_NAME=tosinstest
 
   - name: Download kickstart
     get_url:
       url: "{{ default_kickstart_url }}"
-      dest: "{{ workspace }}/template.ks"
+      dest: "{{ workspace }}/{{ kickstart_file }}"
     when: enable_kickstart == true
 
   - name: Setting host facts using complex arguments
@@ -70,35 +71,35 @@
 
   - name: Replace hostname
     ansible.builtin.replace:
-      path: "{{ workspace }}/template.ks"
+      path: "{{ workspace }}/{{ kickstart_file }}"
       regexp: '(CHANGE_HOSTNAME)'
       replace: "{{ image_name }}-{{ random_hostname }}"
     when: enable_kickstart == true
 
   - name: Replace username
     ansible.builtin.replace:
-      path: "{{ workspace }}/template.ks"
+      path: "{{ workspace }}/{{ kickstart_file }}"
       regexp: '(CHANGE_USERNAME)'
       replace: "{{ username }}"
     when: enable_kickstart == true
 
   - name: Replace ssh
     ansible.builtin.replace:
-      path: "{{ workspace }}/template.ks"
+      path: "{{ workspace }}/{{ kickstart_file }}"
       regexp: '(CHANGE_SSH)'
       replace: "{{ ssh_pub_key }}"
     when: enable_kickstart == true
 
   - name: Replace username
     ansible.builtin.replace:
-      path: "{{ workspace }}/template.ks"
+      path: "{{ workspace }}/{{ kickstart_file }}"
       regexp: '(CHANGE_RHEL_USERNAME)'
       replace: "{{ rh_authentication_basic_username }}"
     when: enable_kickstart == true
 
   - name: Replace password
     ansible.builtin.replace:
-      path: "{{ workspace }}/template.ks"
+      path: "{{ workspace }}/{{ kickstart_file }}"
       regexp: '(CHANGE_PASSWORD)'
       replace: "{{ rh_authentication_basic_password }}"
     when: enable_kickstart == true
