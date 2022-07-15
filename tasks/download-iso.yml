@@ -43,7 +43,7 @@
     when: latest_iso_image_url |length == 0
 
 
-  - name: Get the ISO URL
+  - name: Get the ISO OLDER URL
     ansible.builtin.set_fact:
       older_iso_image_url: "{{ latest_iso_image |community.general.json_query('*.data[1].Installer.ImageBuildISOURL') }}"
     when: latest_iso_image_url |length == 0
@@ -53,7 +53,7 @@
       created_at_timestamp: "{{ latest_iso_image |community.general.json_query('*.data[1].Installer.CreatedAt')}}"
     when: latest_iso_image_url |length == 0
 
-  - name: Get Latest ISO IMAGE
+  - name: Get older ISO IMAGE
     ansible.builtin.debug:
        msg: "Downlaoding {{older_iso_image_url[0]}} to {{ iso_download_directory }}/{{ image_name }}.iso"
     when: latest_iso_image_url |length == 0
