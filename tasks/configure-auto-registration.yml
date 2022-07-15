@@ -62,7 +62,7 @@
     get_url:
       url: "{{ kickstart_path }}"
       dest: "{{ iso_download_directory }}/fleet.kspost"
-     when: enable_kickstart == true
+    when: enable_kickstart == true
 
   - name: Run fleet-management container 
     containers.podman.podman_container:
