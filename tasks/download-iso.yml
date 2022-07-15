@@ -28,12 +28,42 @@
   - name: Get Latest ISO IMAGE
     ansible.builtin.debug:
        msg: "Downlaoding {{latest_iso_image_url[0]}} to {{ iso_download_directory }}/{{ image_name }}.iso"
+    when: latest_iso_image_url |length != 0
 
   - name: Download  ISO
     get_url:
       url: "{{ latest_iso_image_url[0] }}"
       dest: "{{ iso_download_directory }}/{{ image_name  }}.iso"
     delegate_to: localhost
+     when: latest_iso_image_url |length != 0
+
+  - name: Get Latest ISO IMAGE
+    ansible.builtin.debug:
+       msg: "{{  latest_iso_image |community.general.json_query('*.data[1].Installer.ImageBuildISOURL') }}"
+    when: latest_iso_image_url |length == 0
+
+
+  - name: Get the ISO URL
+    ansible.builtin.set_fact:
+      latest_iso_image_url: "{{ latest_iso_image |community.general.json_query('*.data[1].Installer.ImageBuildISOURL') }}"
+    when: latest_iso_image_url |length == 0
+
+  - name: Get the CreatedAt by timestamp
+    ansible.builtin.set_fact:
+      created_at_timestamp: "{{ latest_iso_image |community.general.json_query('*.data[1].Installer.CreatedAt')}}"
+    when: latest_iso_image_url |length == 0
+
+  - name: Get Latest ISO IMAGE
+    ansible.builtin.debug:
+       msg: "Downlaoding {{latest_iso_image_url[0]}} to {{ iso_download_directory }}/{{ image_name }}.iso"
+    when: latest_iso_image_url |length == 0
+
+  - name: Download  ISO
+    get_url:
+      url: "{{ latest_iso_image_url[0] }}"
+      dest: "{{ iso_download_directory }}/{{ image_name  }}.iso"
+    delegate_to: localhost
+    when: latest_iso_image_url |length == 0
 
   tags: 
   - download_latest_iso
