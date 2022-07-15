@@ -68,7 +68,7 @@
     ansible.builtin.replace:
       path: "{{ workspace }}/template.ks"
       regexp: '(CHANGE_USERNAME)'
-      replace: "{{ rh_authentication_basic_username }}"
+      replace: "{{ username }}"
     when: enable_kickstart == true
 
   - name: Replace ssh
