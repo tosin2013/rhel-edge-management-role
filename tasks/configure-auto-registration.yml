@@ -61,7 +61,8 @@
   - name: Download kickstart
     get_url:
       url: "{{ kickstart_path }}"
-      dest: "{{ iso_download_directory }}/fleet_kspost.txt"
+      dest: "{{ iso_download_directory }}/fleet.kspost"
+     when: enable_kickstart == true
 
   - name: Run fleet-management container 
     containers.podman.podman_container:
@@ -74,11 +75,25 @@
       volume:
         -  "{{ iso_download_directory }}/:/isodir:Z"
       detach: no
+    when: enable_kickstart == false
+    
+  - name: Run fleet-management container 
+    containers.podman.podman_container:
+      name: fleet-iso-util-1
+      image: quay.io/fleet-management/fleet-iso-util:latest
+      restart_policy: always
+      state: started
+      interactive: yes
+      rm: yes
+      volume:
+        -  "{{ iso_download_directory }}/:/isodir:Z"
+      detach: no
+    when: enable_kickstart == true
 
   - name: Copy fleet source iso
     copy:
       src: "{{ iso_download_directory }}/fleet_source.iso"
-      dest: "{{ iso_download_directory }}/{{ image_name }}.iso"
+      dest: "{{ iso_download_directory }}/{{ image_name }}_fleet_out.iso"
       remote_src: yes
 
   - name: Remove fleet source iso 
