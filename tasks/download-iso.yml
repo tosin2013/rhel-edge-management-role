@@ -24,7 +24,7 @@
   - name: Get the CreatedAt by timestamp
     ansible.builtin.set_fact:
       created_at_timestamp: "{{ latest_iso_image |community.general.json_query('*.data[0].Installer.CreatedAt')}}"
-     when: latest_iso_image_url | length == 0
+    when: latest_iso_image_url | length == 0
 
   - name: Get Latest ISO IMAGE
     ansible.builtin.debug:
