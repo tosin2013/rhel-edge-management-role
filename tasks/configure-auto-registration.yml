@@ -1,4 +1,10 @@
 ---
+- name: Install podman if not present
+  ansible.builtin.yum:
+    name: 
+      - podman
+    state: present
+    
 - name: Configure auto registration 
   block:
   - name: Login to registry.redhat.io
