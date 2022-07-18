@@ -20,3 +20,23 @@
       mode: '0777'
     when: workspace_dir_exists.stat.exists == false
     delegate_to: localhost
+    
+  - name: Check if iso directory exists
+    stat:
+      path: "{{ iso_download_directory }}"
+    register: iso_dir_exists
+    delegate_to: localhost
+    
+  - name: Check for  workspace directory
+    debug:
+      msg: "The {{ iso_download_directory }} exists"
+    when: iso_dir_exists.stat.exists
+    delegate_to: localhost
+    
+  - name: Creates workspace directory
+    file:
+      path: "{{ iso_download_directory }}"
+      state: directory
+      mode: '0777'
+    when: iso_dir_exists.stat.exists == false
+    delegate_to: localhost
