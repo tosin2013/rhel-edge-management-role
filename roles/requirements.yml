@@ -1,3 +1,6 @@
 ---
 - src: https://github.com/Red-Hat-SE-RTO/rhel-egde-on-vmware.git
   version: main
+  
+- src: https://github.com/Red-Hat-SE-RTO/rhel-edge-on-rhev.git
+  version: main
