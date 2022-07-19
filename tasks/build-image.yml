@@ -26,6 +26,18 @@
 
   - name: Build Image
     block:
+    - name: Check for existing image
+      uri:
+        headers:
+          Content-Type: application/json
+        user: "{{ rh_authentication_basic_username }}"
+        password: "{{ rh_authentication_basic_password }}"
+        force_basic_auth: true
+        url: "https://console.redhat.com/api/edge/v1/images/?name={{ image_name }}"
+        return_content: yes
+        body_format: json
+      register: build_image_result
+
     - name: Copying over image-build.json.j2
       template:
         src: image-build.json.j2
@@ -35,18 +47,21 @@
         remote_src: no
         mode: 0755
       delegate_to: localhost
+      when: (build_image_result.json.data | length) == 0
 
     - name: "Read a file content"
       shell: |
         cat {{ workspace}}/image-build.json
       register: file_content
+      when: (build_image_result.json.data | length) == 0
 
     - name: "Print the file content to a console"
       debug:
         msg: "{{ file_content.stdout }}"
+      when: (build_image_result.json.data | length) == 0
 
   # Help me out here 
-    - name: Start  Image Build 
+    - name: Start Image Build 
       uri:
         headers:
           Content-Type: application/json
@@ -56,7 +71,8 @@
         url: https://console.redhat.com/api/edge/v1/images/
         body_format: json
         method: POST
-        body: "{{ lookup('file', '{{ workspace}}/image-build.json') }}"
+        body: "{{ lookup('file', workspace + '/image-build.json') }}"
         status_code: 200
+      when: (build_image_result.json.data | length) == 0
     tags: 
     - build_image
