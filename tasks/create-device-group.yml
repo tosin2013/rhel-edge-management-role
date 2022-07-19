@@ -22,7 +22,7 @@
       body_format: json
       method: POST
       body: "{{ lookup('file', '{{ workspace}}/device-group.json') }}"
-      status_code: 201
+      status_code: 200
 
   tags: 
   - create_device_group
