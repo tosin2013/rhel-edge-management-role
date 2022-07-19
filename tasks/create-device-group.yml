@@ -9,7 +9,7 @@
       group: "{{ ansible_user }}"
       remote_src: no
       mode: 0755
-    delegate_to: controller
+    delegate_to: local
 
   - name: Create device group 
     uri:
