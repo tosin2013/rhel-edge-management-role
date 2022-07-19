@@ -1,6 +1,18 @@
 ---
 - name: Create device Group
   block:
+  - name: Check for device group 
+    uri:
+      headers:
+        Content-Type: application/json
+      user: "{{ rh_authentication_basic_username }}"
+      password: "{{ rh_authentication_basic_password }}"
+      force_basic_auth: true
+      url: "https://console.redhat.com/api/edge/v1/device-groups/?name={{ device_group_name }}"
+      return_content: yes
+      body_format: json
+    register: build_group_result 
+
   - name: Copying over device-group.json
     template:
       src: device-group.json.j2
@@ -10,6 +22,7 @@
       remote_src: no
       mode: 0755
     delegate_to: localhost
+    when: (build_group_result.json.data | length) > 0
 
   - name: Create device group 
     uri:
@@ -23,6 +36,7 @@
       method: POST
       body: "{{ lookup('file', '{{ workspace}}/device-group.json') }}"
       status_code: 200
+    when: (build_group_result.json.data | length) > 0
 
   tags: 
   - create_device_group
