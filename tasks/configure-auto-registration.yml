@@ -128,6 +128,14 @@
       volume:
         -  "{{ workspace }}/:/isodir:Z"
       detach: no
+      user: "{{ podman_user | default(omit) }}"
+      subgidname: "{{ podman_subgidname | default(omit) }}"
+      subuidname: "{{ podman_subuidname | default(omit) }}"
+      security_opt: "{{ podman_security_opt | default(omit) }}"
+      privileged: "{{ podman_privileged | default(omit) }}"
+      device: "{{ podman_device | default(omit) }}"
+      label: "{{ podman_label | default(omit) }}"
+      cap_add: "{{ podman_cap_add | default(omit) }}"
     when: enable_kickstart == false
     
   - name: Run fleet-management container 
@@ -140,6 +148,14 @@
       volume:
         -  "{{ workspace }}/:/isodir:Z"
       detach: no
+      user: "{{ podman_user | default(omit) }}"
+      subgidname: "{{ podman_subgidname | default(omit) }}"
+      subuidname: "{{ podman_subuidname | default(omit) }}"
+      security_opt: "{{ podman_security_opt | default(omit) }}"
+      privileged: "{{ podman_privileged | default(omit) }}"
+      device: "{{ podman_device | default(omit) }}"
+      label: "{{ podman_label | default(omit) }}"
+      cap_add: "{{ podman_cap_add | default(omit) }}"
     when: enable_kickstart == true
 
   - name: Copy fleet source iso
