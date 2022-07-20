@@ -18,6 +18,8 @@
       username: "{{ rh_authentication_basic_username }}"
       password: '{{ rh_authentication_basic_password }}'
       registry: registry.redhat.io
+    tags:
+      - rh_reg_login
 
   - name: Check if iso download directory exists
     stat:
