@@ -31,7 +31,7 @@
       curl --location --request GET  \
         'https://console.redhat.com/api/edge/v1/storage/isos/{{ build_id | last }}' \
         -H 'accept: application/json' \
-        -H 'Authorization: {{ rh_api_bearer_token }}' --output /tmp/{{ image_name }}.iso
+        -H 'Authorization: {{ rh_api_bearer_token }}' --output {{ iso_download_directory }}/{{ image_name  }}.iso
 
   #- name: Download  latest ISO
   #  get_url:
