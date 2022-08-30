@@ -1,39 +1,44 @@
 ---
 - name: Download Latest iso image 
   block:
-  - name: Download Latest ISO image
+  - name: Get Build Status  
     uri:
       headers:
         Content-Type: application/json
       user: "{{ rh_authentication_basic_username }}"
       password: "{{ rh_authentication_basic_password }}"
       force_basic_auth: true
-      url: https://console.redhat.com/api/edge/v1/images?sort_by=-created_at&name={{ image_name }}
+      url: https://console.redhat.com/api/edge/v1/images?sort_by=distribution&name={{ image_name }}
       return_content: yes
       body_format: json
-    register: latest_iso_image 
+    register: build_id_result 
 
-  - name: Get Latest ISO IMAGE
+  - name: Get Build ID
     ansible.builtin.debug:
-       msg: "{{  latest_iso_image |community.general.json_query('*.data[0].Installer.ImageBuildISOURL') }}"
+       msg: "{{  build_id_result |community.general.json_query('*.data[*].InstallerID') | last  }}"
 
-  - name: Get the ISO URL
+  - name: Set the Build ID fact
     ansible.builtin.set_fact:
-      latest_iso_image_url: "{{ latest_iso_image |community.general.json_query('*.data[0].Installer.ImageBuildISOURL') }}"
-
-  - name: Get the CreatedAt by timestamp
-    ansible.builtin.set_fact:
-      created_at_timestamp: "{{ latest_iso_image |community.general.json_query('*.data[0].Installer.CreatedAt')}}"
-
-  - name: Get Latest ISO IMAGE
+      build_id: "{{ build_id_result |community.general.json_query('*.data[*].InstallerID')  | last  }}"
+   
+  - name: Get Build ID
     ansible.builtin.debug:
-       msg: "Downlaoding {{latest_iso_image_url[0]}} to {{ iso_download_directory }}/{{ image_name }}.iso"
+      var: build_id
+
 
   - name: Download  latest ISO
-    get_url:
-      url: "{{ latest_iso_image_url[0] }}"
-      dest: "{{ iso_download_directory }}/{{ image_name  }}.iso"
-    delegate_to: localhost
+    ansible.builtin.shell: |
+      curl --location --request GET  \
+        'https://console.redhat.com/api/edge/v1/storage/isos/{{ build_id | last }}' \
+        -H 'accept: application/json' \
+        -H 'Authorization: {{ rh_api_bearer_token }}' --output /tmp/{{ image_name }}.iso
+
+  #- name: Download  latest ISO
+  #  get_url:
+  #    headers: "{{ compiled_uri_headers }}"
+  #    url: "https://console.redhat.com/api/edge/v1/storage/isos/{{ build_id  | last }}"
+  #    dest: "{{ iso_download_directory }}/{{ image_name  }}.iso"
+  #  delegate_to: localhost
 
   tags: 
   - download_latest_iso
