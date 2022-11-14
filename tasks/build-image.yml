@@ -42,10 +42,10 @@
       template:
         src: image-build.json.j2
         dest:  "{{ workspace}}/image-build.json"
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
+        #owner: "{{ ansible_user }}"
+        #group: "{{ ansible_user }}"
         remote_src: no
-        mode: 0755
+        #mode: 0755
       delegate_to: localhost
       when: (build_image_result.json.data | length) == 0
 
