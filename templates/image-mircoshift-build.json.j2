@@ -1,0 +1,22 @@
+{
+  "name": "{{ image_name }}",
+  "version": 0,
+  "description": "{{ description }}",
+  "distribution": "{{ distribution }}",
+  "imageType": "rhel-edge-installer",
+  "packages": [{
+        "name": "mircoshift"
+    }],
+  "outputTypes": [
+    "rhel-edge-installer",
+    "rhel-edge-commit"
+  ],
+  "commit": {
+    "arch": "{{ arch }}",
+  },
+  "installer": {
+    "username": "{{ username}}",
+    "sshkey": "{{ ssh_pub_key }}",
+    "thirdPartyRepositories": ['microshift-copr-testing']
+  }
+}
