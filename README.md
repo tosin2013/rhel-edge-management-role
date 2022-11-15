@@ -47,6 +47,8 @@ rhc_activation_key | RHEL activation Key used to register devices |"your_rhc_act
 os_variant "rhel8.6"
 enable_kickstart| Add custom kickstart to deployment | true
 default_kickstart_url| Default kickstart url  |https://raw.githubusercontent.com/red-hat-se-rto/rhel-fleet-management/main/inventories/lab/applications/quarkuscoffeeshop-majestic-monolith-fleet-manger/fleet.kspost"
+
+
 Dependencies
 ------------
 

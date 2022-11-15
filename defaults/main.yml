@@ -31,8 +31,9 @@ image_name: "test-image"
 username: "admin"
 distribution: "rhel-86"
 description: "sample description"
-packages: "curl net-tools podman tar bind-utils git"
+build_template: image-mircoshift-build # for standard deployments image-build.json.j2
 arch: "x86_64"
+mircroshift_deployment: false
 
 #########################################################
 ## current kickstart variables
