@@ -4,9 +4,14 @@
   "description": "{{ description }}",
   "distribution": "{{ distribution }}",
   "imageType": "rhel-edge-installer",
-  "packages": [{
-        "name": "mircoshift"
-    }],
+  "packages": [
+    {
+      "name": "pcp"
+    },
+    {
+      "name": "pcp-zeroconf"
+    }
+  ],
   "outputTypes": [
     "rhel-edge-installer",
     "rhel-edge-commit"
@@ -16,7 +21,18 @@
   },
   "installer": {
     "username": "{{ username}}",
-    "sshkey": "{{ ssh_pub_key }}",
-    "thirdPartyRepositories": [ {"ID": 3485} ]
-  }
+    "sshkey": "{{ ssh_pub_key }}"
+    },
+     "thirdPartyRepositories": [
+    {
+      "ID": "{{ custom_image_id }}",
+      "Name": "microshift-copr-testing",
+      "URL": "https://download.copr.fedorainfracloud.org/results/@redhat-et/microshift-testing/epel-8-x86_64/"
+    }
+    ],
+    "customPackages": [
+      {
+        "Name": "mircoshift"
+      }
+    ]
 }

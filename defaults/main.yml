@@ -34,6 +34,7 @@ description: "sample description"
 build_template: image-mircoshift-build # for standard deployments image-build.json.j2
 arch: "x86_64"
 mircroshift_deployment: false
+custom_image_id: 3485 # need to automate this 
 
 #########################################################
 ## current kickstart variables
