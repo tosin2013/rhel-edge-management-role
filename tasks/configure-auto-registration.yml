@@ -138,10 +138,11 @@
       cap_add: "{{ podman_cap_add | default(omit) }}"
     when: enable_kickstart == false
     
-  - name: Run fleet-management container 
+  - name: Run fleet-management container using kickstart
     containers.podman.podman_container:
       name: fleet-iso-util-1
       image: quay.io/fleet-management/fleet-iso-util:latest
+      command:  /usr/local/bin/fleetkick.sh -k template.ks
       state: started
       interactive: yes
       rm: yes
