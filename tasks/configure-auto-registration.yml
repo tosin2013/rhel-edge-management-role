@@ -1,6 +1,6 @@
 ---
 - name: Check for programs - podman
-  ansible.builtin.shell: "which podman"
+  ansible.builtin.shell: "/usr/bin/which podman"
   register: program_check_podman
   ignore_errors: true
   
