@@ -7,7 +7,7 @@
 - name: Install podman if not present
   when: program_check_podman.rc != 0
   ansible.builtin.yum:
-    name: 
+    name:
       - podman
     state: present
     
