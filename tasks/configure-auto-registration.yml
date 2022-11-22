@@ -1,15 +1,15 @@
 ---
 - name: Check for programs - podman
-  ansible.builtin.shell: "/usr/bin/which podman"
+  ansible.builtin.shell: "which podman"
   register: program_check_podman
   ignore_errors: true
   
-- name: Install podman if not present
-  when: program_check_podman.rc != 0
-  ansible.builtin.yum:
-    name: 
-      - podman
-    state: present
+#- name: Install podman if not present
+#  when: program_check_podman.rc != 0
+#  ansible.builtin.yum:
+#    name: 
+#      - podman
+#    state: present
     
 - name: Configure auto registration 
   block:
