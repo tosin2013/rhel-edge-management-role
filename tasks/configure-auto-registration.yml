@@ -168,13 +168,28 @@
 
   - name: Copy fleet source iso
     copy:
-      src: "{{ workspace }}/fleet_source.iso"
+      src: "{{ workspace }}/fleet_out.iso"
       dest: "{{ iso_download_directory }}/{{ image_name }}_fleet_out.iso"
       remote_src: yes
 
   - name: Remove fleet source iso 
     ansible.builtin.file:
       path: "{{ workspace }}/fleet_source.iso"
+      state: absent
+
+  - name: Remove fleet out iso
+    ansible.builtin.file:
+      path: "{{ workspace }}/fleet_out.iso"
+      state: absent
+
+  - name: Remove fleet_rhc_vars
+    ansible.builtin.file:
+      path: "{{ workspace }}/fleet_rhc_vars"
+      state: absent
+
+  - name: Remove template.ks
+    ansible.builtin.file:
+      path: "{{ workspace }}/template.ks"
       state: absent
 
   - name: Recursively workspace directory
