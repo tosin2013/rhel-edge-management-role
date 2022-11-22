@@ -120,7 +120,7 @@
 
   - name: Copy file with new name
     ansible.builtin.copy:
-      remote_src: false
+      remote_src: true
       src: "{{ workspace }}/{{ kickstart_file }}"
       dest: "{{ workspace }}/template.ks"
     when: enable_kickstart == true
