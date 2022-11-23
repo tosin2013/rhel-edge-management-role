@@ -81,7 +81,7 @@
 
   - name: Setting host facts using complex arguments
     ansible.builtin.set_fact:
-      random_hostname:  "{{ lookup('community.general.random_string', length=5,special=false) }}"
+      random_hostname:  "{{ lookup('community.general.random_string', length=5, upper=false, numbers=false, special=false) }}"
 
   - name: Replace hostname
     ansible.builtin.replace:
