@@ -46,7 +46,7 @@
         #group: "{{ ansible_user }}"
         remote_src: no
         #mode: 0755
-      delegate_to: localhost
+      #delegate_to: localhost
       when: (build_image_result.json.data | length) == 0 
 
     - name: "Read a file content"
