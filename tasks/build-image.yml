@@ -46,14 +46,14 @@
         #group: "{{ ansible_user }}"
         remote_src: no
         #mode: 0755
-      #delegate_to: localhost
+      delegate_to: localhost
       when: (build_image_result.json.data | length) == 0 
 
     - name: "Read a file content"
       shell: |
         cat {{ workspace}}/{{ build_template }}.json
       register: file_content
-      #delegate_to: localhost
+      delegate_to: localhost
       when: (build_image_result.json.data | length) == 0
 
     - name: "Print the file content to a console"
@@ -72,8 +72,7 @@
         url: https://console.redhat.com/api/edge/v1/images/
         body_format: json
         method: POST
-        #body: "{{ lookup('file', workspace + '/{{ build_template }}.json') }}"
-        body: "{{ workspace}}/{{ build_template }}.json"
+        body: "{{ lookup('file', workspace + '/{{ build_template }}.json') }}"
         status_code: 200
       when: (build_image_result.json.data | length) == 0
     tags: 
