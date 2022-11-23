@@ -72,7 +72,8 @@
         url: https://console.redhat.com/api/edge/v1/images/
         body_format: json
         method: POST
-        body: "{{ lookup('file', workspace + '/{{ build_template }}.json') }}"
+        #body: "{{ lookup('file', workspace + '/{{ build_template }}.json') }}"
+        body: "{{ workspace}}/{{ build_template }}.json"
         status_code: 200
       when: (build_image_result.json.data | length) == 0
     tags: 
