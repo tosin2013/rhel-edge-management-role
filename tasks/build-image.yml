@@ -53,7 +53,7 @@
       shell: |
         cat {{ workspace}}/{{ build_template }}.json
       register: file_content
-      delegate_to: localhost
+      #delegate_to: localhost
       when: (build_image_result.json.data | length) == 0
 
     - name: "Print the file content to a console"
