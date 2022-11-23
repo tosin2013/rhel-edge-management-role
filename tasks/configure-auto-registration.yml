@@ -64,6 +64,10 @@
       dest: "{{ workspace }}/fleet_source.iso"
       remote_src: yes
 
+  - name: Setting host facts using complex arguments
+    ansible.builtin.set_fact:
+      random_hostname:  "{{ lookup('community.general.random_string', length=5, upper=false, numbers=false, special=false) }}"
+      
   - name:  Populating fleet_rhc_vars
     copy:
       dest: "{{ workspace }}/fleet_rhc_vars"
@@ -71,17 +75,13 @@
         RHC_ORGID={{ rhc_org_id }}
         RHC_ACTIVATION_KEY={{ rhc_activation_key }}
         RHC_FIRSTBOOT=true
-        INSIGHTS_DISPLAY_NAME=tosinstest
+        INSIGHTS_DISPLAY_NAME="{{ image_name }}-{{ random_hostname }}"
 
   - name: Download kickstart
     get_url:
       url: "{{ default_kickstart_url }}"
       dest: "{{ workspace }}/{{ kickstart_file }}"
     when: enable_kickstart == true
-
-  - name: Setting host facts using complex arguments
-    ansible.builtin.set_fact:
-      random_hostname:  "{{ lookup('community.general.random_string', length=5, upper=false, numbers=false, special=false) }}"
 
   - name: Replace hostname
     ansible.builtin.replace:
