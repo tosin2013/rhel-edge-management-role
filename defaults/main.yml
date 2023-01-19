@@ -31,7 +31,7 @@ image_name: "test-image"
 username: "admin"
 distribution: "rhel-86"
 description: "sample description"
-build_template: image-mircoshift-build # for standard deployments image-build.json.j2
+build_template: image-build # for standard deployments image-build for microshift use image-mircoshift-build
 arch: "x86_64"
 mircroshift_deployment: false
 custom_image_id: 3485 # need to automate this 
