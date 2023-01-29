@@ -4,3 +4,4 @@ collections:
 - containers.podman
 - community.general
 - community.vmware
+- ansible.windows
