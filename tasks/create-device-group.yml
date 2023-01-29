@@ -17,10 +17,10 @@
     template:
       src: device-group.json.j2
       dest:  "{{ workspace}}/device-group.json"
-      owner: "{{ ansible_user }}"
-      group: "{{ ansible_user }}"
+      #owner: "{{ ansible_user }}"
+      #group: "{{ ansible_user }}"
       remote_src: no
-      mode: 0755
+      #mode: 0755
     delegate_to: localhost
     when: (build_group_result.json.data | length) == 0
 
