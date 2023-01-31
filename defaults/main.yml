@@ -41,6 +41,8 @@ custom_image_id: 3485 # need to automate this
 enable_kickstart: true
 default_kickstart_url: "https://raw.githubusercontent.com/red-hat-se-rto/rhel-fleet-management/main/inventories/lab/applications/quarkuscoffeeshop-majestic-monolith-fleet-manger/fleet.kspost"
 clean_kickstart: true
+microshift_kickstart: false
+pull_secret: ''
 
 #########################################################
 ## automated management variables
