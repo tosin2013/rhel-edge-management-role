@@ -4,14 +4,40 @@
   "description": "{{ description }}",
   "distribution": "{{ distribution }}",
   "imageType": "rhel-edge-installer",
-  "packages": [
-    {
-      "name": "pcp"
-    },
-    {
-      "name": "pcp-zeroconf"
+  "packages": [{
+        "name": "git"
+    }, {
+        "name": "bash-completion"
+    }, {
+        "name": "cockpit"
+    }, {
+        "name": "conmon"
+    }, {
+        "name": "vim-minimal"
+    }, {
+        "name": "conntrack-tools"
+    }, {
+        "name": "containernetworking-plugins"
+    }, {
+        "name": "containers-common"
+    }, {
+        "name": "container-selinux"
+    }, {
+        "name": "criu"
+    }, {
+        "name": "curl"
+    }, {
+        "name": "jq"
+    }, {
+        "name": "make"
+    }, {
+        "name": "NetworkManager-ovs"
+    }, {
+        "name": "python36"
+    }, {
+        "name": "selinux-policy-devel"
     }
-  ],
+    ],
   "outputTypes": [
     "rhel-edge-installer",
     "rhel-edge-commit"
@@ -21,18 +47,7 @@
   },
   "installer": {
     "username": "{{ username}}",
-    "sshkey": "{{ ssh_pub_key }}"
-    },
-     "thirdPartyRepositories": [
-    {
-      "ID": {{ custom_image_id }},
-      "Name": "microshift-copr-testing",
-      "URL": "https://download.copr.fedorainfracloud.org/results/@redhat-et/microshift-testing/epel-8-x86_64/"
-    }
-    ],
-    "customPackages": [
-      {
-        "Name": "mircoshift"
-      }
-    ]
+    "sshkey": "{{ ssh_pub_key }}",
+    "thirdPartyRepositories": []
+  }
 }
