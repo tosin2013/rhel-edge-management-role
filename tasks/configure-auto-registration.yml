@@ -114,7 +114,7 @@
   - name: Replace password
     ansible.builtin.replace:
       path: "{{ workspace }}/{{ kickstart_file }}"
-      regexp: '(CHANGE_RHEL_USERNAME)'
+      regexp: '(CHANGE_PASSWORD)'
       replace: "{{ rh_authentication_basic_password }}"
     when: enable_kickstart == true
 
