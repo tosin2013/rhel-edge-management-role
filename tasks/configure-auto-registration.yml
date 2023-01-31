@@ -176,21 +176,25 @@
     ansible.builtin.file:
       path: "{{ workspace }}/fleet_source.iso"
       state: absent
+    when: clean_kickstart == true
 
   - name: Remove fleet out iso
     ansible.builtin.file:
       path: "{{ workspace }}/fleet_out.iso"
       state: absent
+    when: clean_kickstart == true
 
   - name: Remove fleet_rhc_vars
     ansible.builtin.file:
       path: "{{ workspace }}/fleet_rhc_vars"
       state: absent
+    when: clean_kickstart == true
 
   - name: Remove template.ks
     ansible.builtin.file:
       path: "{{ workspace }}/template.ks"
       state: absent
+    when: clean_kickstart == true
 
   - name: Recursively workspace directory
     ansible.builtin.file:
