@@ -22,6 +22,7 @@
       remote_src: no
       #mode: 0755
     delegate_to: localhost
+    ignore_errors: true
 #    when: (build_group_result.json.data | length) == 0
 
   - name: Create device group 
