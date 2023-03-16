@@ -14,8 +14,8 @@
     register: build_group_result 
 
   - name: Print the build_group_result
-    ansible.builtin.debug: 
-      var: build_group_result
+    ansible.builtin.debug:
+      var: build_group_result.json
 
   - name: Copying over device-group.json
     template:
@@ -26,7 +26,7 @@
       remote_src: no
       #mode: 0755
     #delegate_to: localhost
-    when: (build_group_result.json.data | length) == 0
+    when: build_group_result.json.count == 0
     ignore_errors: false
 
 
@@ -42,7 +42,7 @@
       method: POST
       body: "{{ lookup('file', '{{ workspace}}/device-group.json') }}"
       status_code: 200
-    when: (build_group_result.json.data | length) == 0
+    when: build_group_result.json.count == 0
     ignore_errors: true
 
   tags: 
