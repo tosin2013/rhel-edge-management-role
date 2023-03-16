@@ -21,9 +21,9 @@
       #group: "{{ ansible_user }}"
       remote_src: no
       #mode: 0755
-    delegate_to: localhost
+    #delegate_to: localhost
     when: (build_group_result.json.data | length) == 0
-    ignore_errors: true
+    ignore_errors: false
 
   - name: Create device group 
     uri:
