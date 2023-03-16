@@ -8,7 +8,7 @@
 
   - name: Set up headers for Username/Password authentication
     ansible.builtin.set_fact:
-      compiled_ansible.builtin.uri_headers: "{{ compiled_ansible.builtin.uri_headers | combine(tmp_auth_header_fact) }}"
+      compiled_uri_headers: "{{ compiled_uri_headers | combine(tmp_auth_header_fact) }}"
 
 - name: Set up Bearer Token authentication
   block:
@@ -37,7 +37,7 @@
 
   - name: Set up headers for Bearer authentication
     ansible.builtin.set_fact:
-      compiled_ansible.builtin.uri_headers: "{{ compiled_ansible.builtin.uri_headers | combine(tmp_auth_header_fact) }}"
+      compiled_uri_headers: "{{ compiled_uri_headers | combine(tmp_auth_header_fact) }}"
 
   - name: Print ssh key variable
     ansible.builtin.debug:
