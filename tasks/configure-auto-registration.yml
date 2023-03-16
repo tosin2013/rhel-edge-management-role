@@ -165,9 +165,7 @@
       path: "{{ workspace }}"
       state: absent
     when: remove_workspace == true
-  tags:
-  - configure_auto_registration
-
+  
   - name: Get iso path information
     stat:
       path: "{{ iso_download_directory }}/{{ image_name }}_fleet_out.iso"
@@ -175,3 +173,7 @@
 
   - debug:
       var: file_info.stat.dirname
+  tags:
+  - configure_auto_registration
+
+  
