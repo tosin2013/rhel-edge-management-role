@@ -2,6 +2,7 @@ RHEL EDGE Management
 =========
 
 The following role builds images for fleet manager. 
+[![ansible-lint](https://github.com/tosin2013/rhel-edge-management-role/actions/workflows/ansible-lint.yml/badge.svg)](https://github.com/tosin2013/rhel-edge-management-role/actions/workflows/ansible-lint.yml)
 
 Requirements
 ------------
