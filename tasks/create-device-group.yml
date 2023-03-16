@@ -13,6 +13,10 @@
       body_format: json
     register: build_group_result 
 
+  - name: Print the build_group_result
+    ansible.builtin.debug: 
+      var: build_group_result
+
   - name: Copying over device-group.json
     template:
       src: device-group.json.j2
@@ -24,6 +28,7 @@
     #delegate_to: localhost
     when: (build_group_result.json.data | length) == 0
     ignore_errors: false
+
 
   - name: Create device group 
     uri:
