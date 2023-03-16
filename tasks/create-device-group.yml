@@ -39,11 +39,10 @@
       force_basic_auth: true
       url: https://console.redhat.com/api/edge/v1/device-groups/
       body_format: json
-      method: POST
-      body: "{{ lookup('file', '{{ workspace}}/device-group.json') }}"
+      body: "{{ lookup('file', workspace + '/device-group.json') }}"
       status_code: 200
     when: build_group_result.json.count == 0
-    ignore_errors: true
+    ignore_errors: false
 
   tags: 
   - create_device_group
