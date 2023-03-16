@@ -28,12 +28,14 @@ create_image: true
 #########################################################
 ## image atrributes
 image_name: "test-image"
+vm_name: "test-vm"
 username: "admin"
 distribution: "rhel-86"
 description: "sample description"
 build_template: image-build # for standard deployments image-build for microshift use image-microshift-build
 arch: "x86_64"
 custom_image_id: 3485 # need to automate this 
+
 
 #########################################################
 ## current kickstart variables

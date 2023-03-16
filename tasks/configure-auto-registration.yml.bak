@@ -77,15 +77,53 @@
         RHC_FIRSTBOOT=true
         INSIGHTS_DISPLAY_NAME="{{ image_name }}-{{ random_hostname }}"
 
-  - name: Copying over Sample Kickstart
-    template:
-      src: sample.ks.j2
-      dest:  "{{ workspace}}/sample.ks"
-      #owner: "{{ ansible_user }}"
-      #group: "{{ ansible_user }}"
-      remote_src: no
-      #mode: 0755
-    ignore_errors: false
+  - name: Download kickstart
+    get_url:
+      url: "{{ default_kickstart_url }}"
+      dest: "{{ workspace }}/{{ kickstart_file }}"
+    when: enable_kickstart == true
+
+  - name: Replace hostname
+    ansible.builtin.replace:
+      path: "{{ workspace }}/{{ kickstart_file }}"
+      regexp: '(CHANGE_HOSTNAME)'
+      replace: "{{ image_name }}-{{ random_hostname }}"
+    when: enable_kickstart == true
+
+  - name: Replace username
+    ansible.builtin.replace:
+      path: "{{ workspace }}/{{ kickstart_file }}"
+      regexp: '(CHANGE_USERNAME)'
+      replace: "{{ username }}"
+    when: enable_kickstart == true
+
+  - name: Replace ssh
+    ansible.builtin.replace:
+      path: "{{ workspace }}/{{ kickstart_file }}"
+      regexp: '(CHANGE_SSH)'
+      replace: "{{ ssh_pub_key }}"
+    when: enable_kickstart == true
+
+  - name: Replace username
+    ansible.builtin.replace:
+      path: "{{ workspace }}/{{ kickstart_file }}"
+      regexp: '(CHANGE_RHEL_USERNAME)'
+      replace: "{{ rh_authentication_basic_username }}"
+    when: enable_kickstart == true
+
+  - name: Replace password
+    ansible.builtin.replace:
+      path: "{{ workspace }}/{{ kickstart_file }}"
+      regexp: '(CHANGE_PASSWORD)'
+      replace: "{{ rh_authentication_basic_password }}"
+    when: enable_kickstart == true
+
+  - name: Replace pull secret
+    ansible.builtin.replace:
+      path: "{{ workspace }}/{{ kickstart_file }}"
+      regexp: '(CHANGE_PULLSECRET)'
+      replace: "{{ pull_secret }}"
+    when: microshift_kickstart == true
 
   - name: Copy file with new name
     ansible.builtin.copy:
