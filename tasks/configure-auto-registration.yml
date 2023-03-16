@@ -165,7 +165,7 @@
       path: "{{ workspace }}"
       state: absent
     when: remove_workspace == true
-  
+
   - name: Get iso path information
     stat:
       path: "{{ iso_download_directory }}/{{ image_name }}_fleet_out.iso"

@@ -2,18 +2,18 @@
 - name: Set up Basic Username/Password authentication
   block:
   - name: Set up temporary fact
-    set_fact:
+    ansible.builtin.set_fact:
       tmp_auth_header_fact:
         Authorization: "Basic {{ (rh_authentication_basic_username + ':' + rh_authentication_basic_password)|b64encode }}"
 
   - name: Set up headers for Username/Password authentication
-    set_fact:
-      compiled_uri_headers: "{{ compiled_uri_headers | combine(tmp_auth_header_fact) }}"
+    ansible.builtin.set_fact:
+      compiled_ansible.builtin.uri_headers: "{{ compiled_ansible.builtin.uri_headers | combine(tmp_auth_header_fact) }}"
 
 - name: Set up Bearer Token authentication
   block:
   - name: Log into RH SSO API
-    uri:
+    ansible.builtin.uri:
       url: https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
       body_format: form-urlencoded
       method: POST
@@ -27,17 +27,17 @@
     delay: 10
 
   - name: Set up temporary fact for RH Offline Token exchange
-    set_fact:
+    ansible.builtin.set_fact:
       tmp_auth_header_fact:
         Authorization: "Bearer {{ rh_sso_reg.json.access_token }}"
 
   - name: Set up temporary fact for normal non-RH Bearer Token
-    set_fact:
+    ansible.builtin.set_fact:
       rh_api_bearer_token: "Bearer {{ rh_sso_reg.json.access_token }}"
 
   - name: Set up headers for Bearer authentication
-    set_fact:
-      compiled_uri_headers: "{{ compiled_uri_headers | combine(tmp_auth_header_fact) }}"
+    ansible.builtin.set_fact:
+      compiled_ansible.builtin.uri_headers: "{{ compiled_ansible.builtin.uri_headers | combine(tmp_auth_header_fact) }}"
 
   - name: Print ssh key variable
     ansible.builtin.debug:
