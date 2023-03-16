@@ -80,19 +80,14 @@
   - name: Copying over Sample Kickstart
     template:
       src: sample.ks.j2
-      dest:  "{{ workspace}}/sample.ks"
+      dest:  "{{ workspace}}/template.ks"
       #owner: "{{ ansible_user }}"
       #group: "{{ ansible_user }}"
       remote_src: no
       #mode: 0755
     ignore_errors: false
-
-  - name: Copy file with new name
-    ansible.builtin.copy:
-      remote_src: true
-      src: "{{ workspace }}/{{ kickstart_file }}"
-      dest: "{{ workspace }}/template.ks"
     when: enable_kickstart == true
+
 
   - name: Run fleet-management container 
     containers.podman.podman_container:
@@ -112,7 +107,7 @@
       device: "{{ podman_device | default(omit) }}"
       label: "{{ podman_label | default(omit) }}"
       cap_add: "{{ podman_cap_add | default(omit) }}"
-    when: enable_kickstart == false
+    when: enable_kickstart == true
     
   - name: Run fleet-management container using kickstart
     containers.podman.podman_container:
