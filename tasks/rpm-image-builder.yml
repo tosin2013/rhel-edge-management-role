@@ -97,11 +97,11 @@
         user: "{{ rhsm_username }}"
         password: "{{ rhsm_password }}"
         force_basic_auth: true
-        url: https://console.redhat.com/api/image-builder/v1/composes
+        url: https://console.redhat.com/api/image-builder/v1/compose
         body_format: json
         method: POST
         body: "{{ lookup('file', workspace + '/{{ build_template }}.json') }}"
-        status_code: 200
+        status_code: 201
       when: (filtered_images_result | length) == 0
     tags: 
     - rpm_dnf_build_image
