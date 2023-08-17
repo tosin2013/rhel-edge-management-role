@@ -100,7 +100,7 @@
         url: https://console.redhat.com/api/image-builder/v1/composes
         body_format: json
         method: POST
-        body: "{{ lookup('file', workspace + '/{{ build_template }}.json') }}"
+        body: "{{ lookup('file', workspace + '/{{ build_template }}.json')  | json_escape }}"
         status_code: 200
       when: (filtered_images_result | length) == 0
     tags: 
