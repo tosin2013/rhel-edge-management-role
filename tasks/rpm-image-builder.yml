@@ -55,6 +55,7 @@
     - name: Saving image name filter
       set_fact:
         filtered_images_result: "{{ filtered_images[0].image_name }}"
+      when: (filtered_images | length) > 0
 
     - name: Print the status of the image
       debug:
