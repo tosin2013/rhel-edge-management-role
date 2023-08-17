@@ -38,6 +38,11 @@
         force_basic_auth: true
       register: image_info
 
+    # Debuging the image_info
+    - name: Print the status of the image
+      debug:
+        var: image_info
+
     - name: Print the status of the image
       debug:
         var: image_info.content.data[0].id
