@@ -1,5 +1,5 @@
 ---
-- name: Build Image
+- name: RPM-DNF Build Image
   block:
   #- name: Copying over parse_image.sh 
   #  template:
@@ -78,4 +78,4 @@
         status_code: 200
       when: (image_info.content.data[0].id | length) == 0
     tags: 
-    - build_image
+    - rpm_dnf_build_image

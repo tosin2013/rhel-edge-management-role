@@ -159,8 +159,13 @@ Create device group on the redhat console website
  ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" - -t create_device_group
 ```
 
+Create and build rhel image on redhat console using RPM-DNF.
+ > https://console.redhat.com/edge/manage-images
+```
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t rpm_dnf_build_image
+```
 
-Create and build rhel image on redhat console.
+Create and build rhel image on redhat console using ostree.
  > https://console.redhat.com/edge/manage-images
 ```
  ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t build_image

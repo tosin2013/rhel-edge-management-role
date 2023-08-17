@@ -12,10 +12,15 @@
   tags: 
   - create_device_group
 
-- name: Build Image 
-  import_tasks: build-image.yml
+- name: RPM-DNF Build Image 
+  import_tasks: rpm-image-builder.yml
   tags: 
-  - build_image
+  - rpm_dnf_build_image
+
+- name: ostree Build Image 
+  import_tasks: ostree-build-image.yml
+  tags: 
+  - ostree_build_image
 
 - name: Get Build Status 
   import_tasks: get-build-status.yml
