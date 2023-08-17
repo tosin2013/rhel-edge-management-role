@@ -54,7 +54,7 @@
 
     - name: Print the status of the image
       debug:
-        var: filtered_images.image_name
+        var: filtered_images[0].image_name
 
     - name: Copying over image-builder.json.j2
       template:
@@ -65,19 +65,19 @@
         remote_src: no
         #mode: 0755
       #delegate_to: localhost
-      when: (filtered_images.image_name | length) == 0 
+      when: (filtered_images[0].image_name | length) == 0 
 
     - name: "Read a file content"
       shell: |
         cat {{ workspace}}/{{ build_template }}.json
       register: file_content
       #delegate_to: localhost
-      when: (filtered_images.image_name | length) == 0
+      when: (filtered_images[0].image_name | length) == 0
 
     - name: "Print the file content to a console"
       debug:
         msg: "{{ file_content.stdout }}"
-      when: (filtered_images.image_name | length) == 0
+      when: (filtered_images[0].image_name | length) == 0
 
   # Help me out here 
     - name: Start Image Build 
@@ -92,6 +92,6 @@
         method: POST
         body: "{{ lookup('file', workspace + '/{{ build_template }}.json') }}"
         status_code: 200
-      when: (filtered_images.image_name | length) == 0
+      when: (filtered_images[0].image_name | length) == 0
     tags: 
     - rpm_dnf_build_image
