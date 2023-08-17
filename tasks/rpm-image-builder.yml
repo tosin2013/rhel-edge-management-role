@@ -39,7 +39,7 @@
       register: image_info
 
     # Debuging the image_info
-    - name: Print the status of the image
+    - name: Print All ghe json content
       debug:
         var: image_info
 
@@ -48,7 +48,7 @@
         filtered_images: "{{ image_info.json['data'] | selectattr('image_name', 'ne', 'cool-running-3') }}"
 
     # Debuging the image_info
-    - name: Print the status of the image
+    - name: Print the filtered json content
       debug:
         var: filtered_images
 
