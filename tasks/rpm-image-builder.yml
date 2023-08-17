@@ -45,7 +45,7 @@
 
     - name: Filter out image name
       set_fact:
-        filtered_images: "{{ image_info.json['data'] | selectattr('image_name', 'eq', '{{ image_name }}') }}"
+        filtered_images: "{{ image_info.json['data'] | selectattr('image_name', 'eq', image_name ) }}"
 
     # Debuging the image_info
     - name: Print the filtered json content
