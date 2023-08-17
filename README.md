@@ -39,6 +39,7 @@ rh_authentication_basic_password| RHEL Password |password
 ssh_pub_key| Public SSH key | "ssh-rsa XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 device_group_name | Name of device Group |"my-device-name-group"
 image_name | Name of image  |"test-image"
+image_type | Type of image |" image-installer"  # guest-image=qcow2 image-installer=iso
 username | Name of user of target edge device |"admin"
 distribution | RHEL Build distribution |"rhel-86"
 description | Descrition of image |"sample description"

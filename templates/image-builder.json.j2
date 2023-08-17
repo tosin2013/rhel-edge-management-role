@@ -1,0 +1,25 @@
+{
+    "distribution": "{{ distribution }}",
+    "image_name": "{{ image_name }}",
+    "image_requests": [
+      {
+        "architecture": "x86_64",
+        "image_type": "{{ image_type }}",
+        "upload_request": {
+          "type": "aws.s3",
+          "options": {}
+        }
+      }
+    ],
+    "customizations": {
+      "packages": {{ packages }},
+      "subscription": {
+        "activation-key": "{{ rhc_activation_key }}",
+        "insights": true,
+        "rhc": true,
+        "organization": {{ rhc_org_id }},
+        "server-url": "subscription.rhsm.redhat.com",
+        "base-url": "https://cdn.redhat.com/"
+      }
+    }
+  }
