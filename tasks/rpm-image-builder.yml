@@ -43,6 +43,15 @@
       debug:
         var: image_info
 
+    - name: Filter out image name cool-running-3
+      set_fact:
+      filtered_images: "{{ image_info.json['data'] | selectattr('image_name', 'ne', 'cool-running-3') }}"
+
+    # Debuging the image_info
+    - name: Print the status of the image
+      debug:
+        var: filtered_images
+
     - name: Print the status of the image
       debug:
         var: image_info.content.data[0].id
