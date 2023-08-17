@@ -68,8 +68,8 @@
       uri:
         headers:
           Content-Type: application/json
-        user: "{{ rh_authentication_basic_username }}"
-        password: "{{ rh_authentication_basic_password }}"
+        user: "{{ rhsm_username }}"
+        password: "{{ rhsm_password }}"
         force_basic_auth: true
         url: https://console.redhat.com/api/image-builder/v1/composes
         body_format: json

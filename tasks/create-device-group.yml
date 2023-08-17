@@ -5,8 +5,8 @@
     uri:
       headers:
         Content-Type: application/json
-      user: "{{ rh_authentication_basic_username }}"
-      password: "{{ rh_authentication_basic_password }}"
+      user: "{{ rhsm_username }}"
+      password: "{{ rhsm_password }}"
       force_basic_auth: true
       url: "https://console.redhat.com/api/edge/v1/device-groups/?name={{ device_group_name }}"
       return_content: yes
@@ -34,8 +34,8 @@
     uri:
       headers:
         Content-Type: application/json
-      user: "{{ rh_authentication_basic_username }}"
-      password: "{{ rh_authentication_basic_password }}"
+      user: "{{ rhsm_username }}"
+      password: "{{ rhsm_password }}"
       force_basic_auth: true
       url: https://console.redhat.com/api/edge/v1/device-groups/
       body_format: json

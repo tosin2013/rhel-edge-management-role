@@ -15,8 +15,8 @@
   block:
   - name: Login to registry.redhat.io
     containers.podman.podman_login:
-      username: "{{ rh_authentication_basic_username }}"
-      password: '{{ rh_authentication_basic_password }}'
+      username: "{{ rhsm_username }}"
+      password: '{{ rhsm_password }}'
       registry: registry.redhat.io
     tags:
       - rh_reg_login

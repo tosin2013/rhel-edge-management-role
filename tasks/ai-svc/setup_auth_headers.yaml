@@ -4,7 +4,7 @@
   - name: Set up temporary fact
     ansible.builtin.set_fact:
       tmp_auth_header_fact:
-        Authorization: "Basic {{ (rh_authentication_basic_username + ':' + rh_authentication_basic_password)|b64encode }}"
+        Authorization: "Basic {{ (rhsm_username + ':' + rhsm_password)|b64encode }}"
 
   - name: Set up headers for Username/Password authentication
     ansible.builtin.set_fact:

@@ -15,8 +15,8 @@
   block:
   - name: Login to registry.redhat.io
     containers.podman.podman_login:
-      username: "{{ rh_authentication_basic_username }}"
-      password: '{{ rh_authentication_basic_password }}'
+      username: "{{ rhsm_username }}"
+      password: '{{ rhsm_password }}'
       registry: registry.redhat.io
     tags:
       - rh_reg_login
@@ -108,14 +108,14 @@
     ansible.builtin.replace:
       path: "{{ workspace }}/{{ kickstart_file }}"
       regexp: '(CHANGE_RHEL_USERNAME)'
-      replace: "{{ rh_authentication_basic_username }}"
+      replace: "{{ rhsm_username }}"
     when: enable_kickstart == true
 
   - name: Replace password
     ansible.builtin.replace:
       path: "{{ workspace }}/{{ kickstart_file }}"
       regexp: '(CHANGE_PASSWORD)'
-      replace: "{{ rh_authentication_basic_password }}"
+      replace: "{{ rhsm_password }}"
     when: enable_kickstart == true
 
   - name: Replace pull secret

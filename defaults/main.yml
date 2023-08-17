@@ -13,8 +13,8 @@ image_type: image-installer"  # guest-image=qcow2 image-installer=iso
 
 # defaults file for rhel-edge-mangement-role
 rh_offline_authentication_api_bearer_token:  rh_api_offline_token 
-rh_authentication_basic_username:  username 
-rh_authentication_basic_password:  password 
+rhsm_username:  username 
+rhsm_password:  password 
 
 #########################################################
 ## Required Files
@@ -35,7 +35,7 @@ distribution: "rhel-86"
 description: "sample description"
 # for osbuild tree  deployments image-build for microshift use image-microshift-build
 # for rpm image builder use image-builder
-build_template: image-build 
+build_template: image-build
 
 arch: "x86_64"
 custom_image_id: 3485 # need to automate this 

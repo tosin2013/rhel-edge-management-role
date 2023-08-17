@@ -34,8 +34,8 @@ rh_offline_authentication_api_bearer_token | offline Token for API Acccess |rh_a
 iso_download_directory | Default iso download directory | "/tmp/generated_iso"
 workspace | Default workspace for fleet manager | "/tmp/workspace"
 remove_workspace | Default workspace directory | true
-rh_authentication_basic_username| RHEL username | username 
-rh_authentication_basic_password| RHEL Password |password 
+rhsm_username| RHEL username | username 
+rhsm_password| RHEL Password |password 
 ssh_pub_key| Public SSH key | "ssh-rsa XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 device_group_name | Name of device Group |"my-device-name-group"
 image_name | Name of image  |"test-image"
@@ -73,8 +73,8 @@ Example Vars
 cat >your_vars_vmware_test.yml<<EOF
 ---
 rh_offline_authentication_api_bearer_token: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXc"
-rh_authentication_basic_username:  login@example.com
-rh_authentication_basic_password:  yourpassword 
+rhsm_username:  login@example.com
+rhsm_password:  yourpassword 
 
 ssh_pub_key: "ssh-rsa XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
@@ -102,8 +102,8 @@ EOF
 cat >your_vars.yml<<EOF
 ---
 rh_offline_authentication_api_bearer_token: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXc"
-rh_authentication_basic_username:  login@example.com
-rh_authentication_basic_password:  yourpassword 
+rhsm_username:  login@example.com
+rhsm_password:  yourpassword 
 
 ssh_pub_key: "ssh-rsa XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
