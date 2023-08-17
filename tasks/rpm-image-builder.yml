@@ -45,7 +45,7 @@
 
     - name: Filter out image name cool-running-3
       set_fact:
-        filtered_images: "{{ image_info.json['data'] | selectattr('image_name', 'ne', 'cool-running-3') }}"
+        filtered_images: "{{ image_info.json['data'] | selectattr('image_name', 'eq', 'cool-running-3') }}"
 
     # Debuging the image_info
     - name: Print the filtered json content
