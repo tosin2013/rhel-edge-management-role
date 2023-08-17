@@ -48,9 +48,9 @@
         filtered_images: "{{ image_info.json['data'] | selectattr('image_name', 'eq', image_name ) }}"
 
     # Debuging the image_info
-    - name: Print the filtered json content
-      debug:
-        var: filtered_images
+    #- name: Print the filtered json content
+    #  debug:
+    #    var: filtered_images
 
     - name: Saving image name filter
       set_fact:
