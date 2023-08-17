@@ -32,8 +32,10 @@
         method: GET
         headers:
           accept: application/json
-          Authorization: Bearer '$ACTIVE_TOKEN'
+        user: "{{ rhsm_username }}"
+        password: "{{ rhsm_password }}"
         return_content: yes
+        force_basic_auth: true
       register: image_info
 
     - name: Print the status of the image
