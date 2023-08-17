@@ -57,6 +57,11 @@
         filtered_images_result: "{{ filtered_images[0].image_name }}"
       when: (filtered_images | length) > 0
 
+    - name: Saving image name filter to empty string if no image found
+      set_fact:
+        filtered_images_result: ""
+      when: (filtered_images | length) == 0
+
     - name: Print the status of the image
       debug:
         var: filtered_images_result
