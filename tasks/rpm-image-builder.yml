@@ -43,7 +43,7 @@
       debug:
         var: image_info
 
-    - name: Filter out image name cool-running-3
+    - name: Filter out image name
       set_fact:
         filtered_images: "{{ image_info.json['data'] | selectattr('image_name', 'eq', '{{ image_name }}') }}"
 
@@ -52,9 +52,13 @@
       debug:
         var: filtered_images
 
+    - name: Saving image name filter
+      set_fact:
+        filtered_images_result: filtered_images[0].image_name
+
     - name: Print the status of the image
       debug:
-        var: filtered_images[0].image_name
+        var: filtered_images_result
 
     - name: Copying over image-builder.json.j2
       template:
@@ -65,19 +69,19 @@
         remote_src: no
         #mode: 0755
       #delegate_to: localhost
-      when: (filtered_images[0].image_name | length) == 0 
+      when: (filtered_images_result | length) == 0 
 
     - name: "Read a file content"
       shell: |
         cat {{ workspace}}/{{ build_template }}.json
       register: file_content
       #delegate_to: localhost
-      when: (filtered_images[0].image_name | length) == 0
+      when: (filtered_images_result | length) == 0
 
     - name: "Print the file content to a console"
       debug:
         msg: "{{ file_content.stdout }}"
-      when: (filtered_images[0].image_name | length) == 0
+      when: (filtered_images_result  | length) == 0
 
   # Help me out here 
     - name: Start Image Build 
@@ -92,6 +96,6 @@
         method: POST
         body: "{{ lookup('file', workspace + '/{{ build_template }}.json') }}"
         status_code: 200
-      when: (filtered_images[0].image_name | length) == 0
+      when: (filtered_images_result | length) == 0
     tags: 
     - rpm_dnf_build_image
