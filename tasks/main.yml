@@ -17,6 +17,11 @@
   tags: 
   - rpm_dnf_build_image
 
+- name: Delete RPM-DNF Build Image
+  import_tasks: delete-rpm-image-builder.yml
+  tags:
+  - delete_dnf_build_image
+
 - name: ostree Build Image 
   import_tasks: ostree-build-image.yml
   tags: 

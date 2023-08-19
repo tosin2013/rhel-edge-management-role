@@ -1,0 +1,83 @@
+---
+- name: DELETE RPM-DNF Build Image
+  block:
+  #- name: Copying over parse_image.sh 
+  #  template:
+  #    src: parse_image.sh.j2
+  #    dest:  "{{ workspace}}/parse_image.sh"
+  #    owner: "{{ ansible_user }}"
+  #    group: "{{ ansible_user }}"
+  #    remote_src: no
+  #    mode: 0755
+  #  delegate_to: localhost
+
+  #- name: Parse images
+  # command: "sh {{ workspace}}/parse_image.sh '{{packages}}'"
+  #  register: parsed_images_result
+
+  #- name: Print results for image parse
+  #ansible.builtin.set_fact:
+  #  parsed_images: "{{ lookup('file', '{{ workspace}}/packages_escaped.txt') }}"
+
+
+  #- name: Get parsed images output
+  #  ansible.builtin.debug: 
+  #    var: parsed_images
+
+  - name: Build Image
+    block:
+    - name: Get the status of the image
+      uri:
+        url: 'https://console.redhat.com/api/image-builder/v1/composes'
+        method: GET
+        headers:
+          accept: application/json
+        user: "{{ rhsm_username }}"
+        password: "{{ rhsm_password }}"
+        return_content: yes
+        force_basic_auth: true
+      register: image_info
+
+    # Debuging the image_info
+    - name: Print All ghe json content
+      debug:
+        var: image_info
+
+    - name: Filter out image name
+      set_fact:
+        filtered_images: "{{ image_info.json['data'] | selectattr('image_name', 'eq', image_name ) }}"
+
+
+    - name: Saving image name filter
+      set_fact:
+        filtered_images_result: "{{ filtered_images[0].id }}"
+      when: (filtered_images | length) > 0
+
+
+    # Debuging the image_info
+    - name: Print the filtered json content
+      debug:
+        var: filtered_images_result
+
+
+    - name: Saving image name filter to empty string if no image found
+      set_fact:
+        filtered_images_result: ""
+      when: (filtered_images | length) == 0
+
+    - name: Print the status of the image
+      debug:
+        var: filtered_images_result
+
+  # Help me out here 
+    - name: Delete Image Build 
+      uri:
+        user: "{{ rhsm_username }}"
+        password: "{{ rhsm_password }}"
+        force_basic_auth: true
+        url: https://console.redhat.com/api/image-builder/v1/composes/{{ filtered_images_result }}
+        method: DELETE
+        status_code: 200
+      when: (filtered_images_result | length) > 0
+    tags: 
+    - delete_dnf_build_image
