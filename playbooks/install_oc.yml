@@ -38,7 +38,32 @@
         state: present
       when: molecule_pip_dependencies is defined
 
+    - name: Install ansible-galaxy collections
+      ansible.builtin.command:
+        cmd: ansible-galaxy collection install -r collections/requirements.yml
+      args:
+        warn: no
+
+    - name: Install ansible-galaxy roles
+      ansible.builtin.command:
+        cmd: ansible-galaxy role install -r roles/requirements.yml
+      args:
+        warn: no
+
+    - name: Create directory for ansible roles
+      ansible.builtin.file:
+        path: /home/runner/.ansible/roles
+        state: directory
+        mode: 0770
+
+    - name: Create symbolic link for rhel-edge-management-role
+      ansible.builtin.file:
+        src: /projects/rhel-edge-management-role
+        dest: /home/runner/.ansible/roles
+        state: link
+
 
 # ansible-galaxy collection install -r collections/requirements.yml
 # ansible-galaxy role install -r roles/requirements.yml
+# mkdir -p /home/runner/.ansible/roles
 # ln -s /projects/rhel-edge-management-role /home/runner/.ansible/roles

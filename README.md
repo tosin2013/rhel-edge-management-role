@@ -178,10 +178,16 @@ Create and build rhel image on redhat console using ostree.
 ```
 
 
-Wait for build to complete
+Wait for ostree build to complete
  > https://console.redhat.com/edge/manage-images
 ```
  ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t get_build_status
+```
+
+Wait for RPM-DNF image build to complete
+ > https://console.redhat.com/insights/image-builder
+```
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t get_dnf_build_status
 ```
 
 Download ISO from redhat console

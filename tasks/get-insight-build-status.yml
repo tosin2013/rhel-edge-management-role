@@ -1,6 +1,33 @@
 ---
 - name: Get status of image build
   block:
+  - name: Get the image build info
+    uri:
+      url: 'https://console.redhat.com/api/image-builder/v1/composes'
+      method: GET
+      headers:
+        accept: application/json
+      user: "{{ rhsm_username }}"
+      password: "{{ rhsm_password }}"
+      return_content: yes
+      force_basic_auth: true
+    register: build_id_result
+
+  # Debuging the image_info
+  - name: Print All the json content
+    debug:
+      var: build_id_result
+
+  - name: Filter out image name
+    set_fact:
+      filtered_images: "{{ build_id_result.json['data'] | selectattr('image_name', 'eq', image_name ) }}"
+
+
+  - name: Saving image name filter
+    set_fact:
+      filtered_images_result: "{{ filtered_images[0].id }}"
+    when: (filtered_images | length) > 0
+
   - name: Get Build Status  
     uri:
       headers:
@@ -8,19 +35,19 @@
       user: "{{ rhsm_username }}"
       password: "{{ rhsm_password }}"
       force_basic_auth: true
-      url: https://console.redhat.com/api/edge/v1/images?sort_by=distribution&name={{ image_name }}
+      url: https://console.redhat.com/api/image-builder/v1/composes/{{ filtered_images_result }}
       return_content: yes
       body_format: json
-    register: build_id_result 
+    register: build_id_status 
 
   - name: Get Build ID
     ansible.builtin.debug:
-       msg: "{{  build_id_result |community.general.json_query('*.data[*].Status') }}"
+       msg: "{{  build_id_status |community.general.json_query('*.image_status.status') }}"
 
   - name: Set the Build ID fact
     ansible.builtin.set_fact:
-      build_id: "{{ build_id_result |community.general.json_query('*.data[*].Status') }}"
-   
+      build_id: "{{  build_id_status |community.general.json_query('*.image_status.status') }}"
+
   - name: Get Build ID
     ansible.builtin.debug:
       var: build_id
@@ -32,12 +59,12 @@
       user: "{{ rhsm_username }}"
       password: "{{ rhsm_password }}"
       force_basic_auth: true
-      url: https://console.redhat.com/api/edge/v1/images?sort_by=distribution&name={{ image_name }}
+      url:  https://console.redhat.com/api/image-builder/v1/composes/{{ filtered_images_result }}
       return_content: yes
       body_format: json
     register: build_id_result 
-    until:  "{{ build_id_result |community.general.json_query('*.data[*].Status') }} is search('SUCCESS')"
+    until:  "{{ build_id_result |community.general.json_query('*.image_status.status') }} is search('success')"
     retries: 50
     delay: 360
   tags: 
-  - get_build_status
+  - get_rpm_dnf_build_status

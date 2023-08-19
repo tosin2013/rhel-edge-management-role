@@ -31,7 +31,12 @@
   import_tasks: get-build-status.yml
   tags: 
   - get_build_status
-  
+
+- name: Get RPM-DNF Build Status 
+  import_tasks: get-insight-build-status.yml
+  tags: 
+  - get_rpm_dnf_build_status
+
 - name: Download the latest iso build
   import_tasks: download-iso.yml
   tags: 
