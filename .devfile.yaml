@@ -1,6 +1,6 @@
 schemaVersion: 2.2.0
 metadata:
-  name: ansible-demo
+  name: rhel-edge-management-role 
 components:
   - name: tooling-container
     container:

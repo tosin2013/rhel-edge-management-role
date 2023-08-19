@@ -60,6 +60,7 @@ Dependencies
 Example Playbook
 ----------------
 ```
+vim myplaybook.yml
 - hosts: localhost
   remote_user: root
   roles:
@@ -70,7 +71,7 @@ Example Playbook
 Example Vars
 ------------
 ```
-cat >your_vars_vmware_test.yml<<EOF
+cat >vars_vmware_test.yml<<EOF
 ---
 rh_offline_authentication_api_bearer_token: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXc"
 rhsm_username:  login@example.com
@@ -99,7 +100,7 @@ EOF
 ```
 
 ```
-cat >your_vars.yml<<EOF
+cat >vars.yml<<EOF
 ---
 rh_offline_authentication_api_bearer_token: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXc"
 rhsm_username:  login@example.com
@@ -150,56 +151,56 @@ How-To
 To Deploy 
 
 ```
-ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml"
+ansible-playbook -i inventory myplaybook.yml --extra-vars "@vars.yml"
 ```
 
 Create device group on the redhat console website
 > https://console.redhat.com/edge/fleet-management
 ```
- ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" - -t create_device_group
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@vars.yml" - -t create_device_group
 ```
 
 Create and build rhel image on redhat console using RPM-DNF.
  > https://console.redhat.com/edge/manage-images
 ```
- ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t rpm_dnf_build_image
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@vars.yml" -t rpm_dnf_build_image
 ```
 
 Delete a rhel image on redhat console using RPM-DNF.
  > https://console.redhat.com/edge/manage-images
 ```
- ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t delete_dnf_build_image
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@vars.yml" -t delete_dnf_build_image
 ```
 
 Create and build rhel image on redhat console using ostree.
  > https://console.redhat.com/edge/manage-images
 ```
- ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t build_image
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@vars.yml" -t build_image
 ```
 
 
 Wait for ostree build to complete
  > https://console.redhat.com/edge/manage-images
 ```
- ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t get_build_status
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@vars.yml" -t get_build_status
 ```
 
 Wait for RPM-DNF image build to complete
  > https://console.redhat.com/insights/image-builder
 ```
- ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t get_dnf_build_status
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@vars.yml" -t get_dnf_build_status
 ```
 
 Download ISO from redhat console
  > https://console.redhat.com/edge/manage-images
 ```
- ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t download_latest_iso
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@vars.yml" -t download_latest_iso
 ```
 
 Auto register vms so they will populate on 
  > https://console.redhat.com/insights/inventory/
 ```
- ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t configure_auto_registration
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@vars.yml" -t configure_auto_registration
 ```
 
 Deploy ISOs
@@ -207,9 +208,9 @@ Deploy ISOs
 Start VM on vmware
 > for custom isos user the append _fleet_out.iso to  `iso_path_loc` and `iso_src`
 ```
-$ ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t vmware_create_folder,vmware_check_for_iso,vmware_upload_iso  -vv
+$ ansible-playbook -i inventory myplaybook.yml --extra-vars "@vars.yml" -t vmware_create_folder,vmware_check_for_iso,vmware_upload_iso  -vv
  
-$ ansible-playbook -i inventory myplaybook.yml --extra-vars "@your_vars.yml" -t vmware_deploy_vms -vv
+$ ansible-playbook -i inventory myplaybook.yml --extra-vars "@vars.yml" -t vmware_deploy_vms -vv
 ```
 
 
