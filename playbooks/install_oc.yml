@@ -39,14 +39,12 @@
       when: molecule_pip_dependencies is defined
 
     - name: Install ansible-galaxy collections
-      ansible.builtin.command:
-        cmd: ansible-galaxy collection install -r collections/requirements.yml
+      ansible.builtin.command: ansible-galaxy collection install -r collections/requirements.yml
       args:
         warn: no
 
     - name: Install ansible-galaxy roles
-      ansible.builtin.command:
-        cmd: ansible-galaxy role install -r roles/requirements.yml
+      ansible.builtin.command: ansible-galaxy role install -r roles/requirements.yml
       args:
         warn: no
 
