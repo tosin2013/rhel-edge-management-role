@@ -70,37 +70,68 @@ vim myplaybook.yml
 
 Example Vars
 ------------
+This file works with RPM-DNF, you can manage the system software by using the DNF package manager and updated RPM packages. This is a simple and adaptive method of managing and modifying the system over its lifecycle.
 ```
-cat >vars_vmware_test.yml<<EOF
+vim vars.yml
 ---
 rh_offline_authentication_api_bearer_token: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXc"
 rhsm_username:  login@example.com
 rhsm_password:  yourpassword 
 
-ssh_pub_key: "ssh-rsa XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+#########################################################
+## Directories
+### For Tower 
+## for workstation: iso_download_directory: "/opt/generated_iso"
+iso_download_directory: "/tmp/generated_iso"
+image_type: image-installer   # guest-image=qcow2 image-installer=iso
 
+### For Tower 
+## for workstation: workspace: "/opt/lib/aws/projects/workspace"
+workspace: "/tmp"
 
+#########################################################
+## Required Files
+ssh_pub_key: "CHANGEME"
+
+#########################################################
+## required variables
 create_device_name_group: true
 device_group_name: "my-device-name-group"
 create_image: true
 
-
 #########################################################
 ## image atrributes
-image_name: "imagename"
+image_name: "test-image" # Example: "test-image-11-13-2022-b1"
 username: "admin"
-distribution: "rhel-86"
+distribution: "rhel-92"
 description: "sample description"
-packages: 'curl net-tools podman tar bind-utils git'
+packages:  ["curl", "net-tools", "podman", "tar", "bind-utils", "git"]
+# for osbuild tree  deployments image-build for microshift use image-microshift-build
+# for rpm image builder use image-builder
+build_template: image-builder
 arch: "x86_64"
+enable_kickstart: false 
+kickstart_path: "https://raw.githubusercontent.com/Red-Hat-SE-RTO/rhel-fleet-management/main/inventories/lab/applications/quarkuscoffeeshop-majestic-monolith-fleet-manger/fleet.kspost"
 
-rhc_org_id: "your_rhc_org_id"
-rhc_activation_key: "your_rhc_activation_key"
-EOF
+#########################################################
+## automated management variables
+## https://access.redhat.com/management/activation_keys
+rhc_org_id: "1111111"
+rhc_activation_key: "CHANGEME"
+
+#########################################################
+## optional variables
+## osinfo-query os
+os_variant: "rhel8.6"
+
+#########################################################
+## Dont need to change 
+compiled_uri_headers: {}
 ```
 
+This file is a work in progress, it will deploy vms on vmware and deploy the iso to the vm.
 ```
-cat >vars.yml<<EOF
+cat >vars_vmware_test.yml<<EOF
 ---
 rh_offline_authentication_api_bearer_token: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXc"
 rhsm_username:  login@example.com
@@ -157,7 +188,7 @@ ansible-playbook -i inventory myplaybook.yml --extra-vars "@vars.yml"
 Create device group on the redhat console website
 > https://console.redhat.com/edge/fleet-management
 ```
- ansible-playbook -i inventory myplaybook.yml --extra-vars "@vars.yml" - -t create_device_group
+ ansible-playbook -i inventory myplaybook.yml --extra-vars "@vars.yml" -t create_device_group
 ```
 
 Create and build rhel image on redhat console using RPM-DNF.
