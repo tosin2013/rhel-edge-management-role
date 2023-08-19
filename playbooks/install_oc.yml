@@ -44,17 +44,7 @@
     - name: Install ansible-galaxy roles
       ansible.builtin.command: ansible-galaxy role install -r /projects/rhel-edge-management-role/roles/requirements.yml
 
-    - name: Create directory for ansible roles
-      ansible.builtin.file:
-        path: /home/runner/.ansible/roles
-        state: directory
-        mode: 0770
 
-    - name: Create symbolic link for rhel-edge-management-role
-      ansible.builtin.file:
-        src: /projects/rhel-edge-management-role
-        dest: /home/runner/.ansible/roles
-        state: link
 
 
 # ansible-galaxy collection install -r collections/requirements.yml
