@@ -32,3 +32,5 @@ oc create -f apps/device-edge-demos/cluster-config.yaml
 ![20230821125216](https://i.imgur.com/J3EStAt.png)
 7. Create vars.yml
 ![20230821125306](https://i.imgur.com/kQOOWvl.png)
+8. Run playbook 
+![20230821125412](https://i.imgur.com/0bjqdCF.png)
