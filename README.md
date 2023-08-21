@@ -1,7 +1,7 @@
 RHEL EDGE Management
 =========
 
-The following role builds images for fleet manager. 
+This Ansible role automates the functions and operations of the Red Hat Insights Image Builder (https://console.redhat.com/insights/image-builder). It streamlines the process of building, customizing, and deploying system images using Red Hat's platform.
 
 [![ansible-lint](https://github.com/tosin2013/rhel-edge-management-role/actions/workflows/ansible-lint.yml/badge.svg)](https://github.com/tosin2013/rhel-edge-management-role/actions/workflows/ansible-lint.yml)
 
