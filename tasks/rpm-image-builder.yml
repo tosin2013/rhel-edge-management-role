@@ -46,6 +46,7 @@
     - name: Filter out image name
       set_fact:
         filtered_images: "{{ image_info.json['data'] | selectattr('image_name', 'eq', image_name ) }}"
+      ignore_errors: true
 
     # Debuging the image_info
     #- name: Print the filtered json content
@@ -55,12 +56,12 @@
     - name: Saving image name filter
       set_fact:
         filtered_images_result: "{{ filtered_images[0].image_name }}"
-      when: (filtered_images | length) > 0
+      when: filtered_images is defined
 
     - name: Saving image name filter to empty string if no image found
       set_fact:
         filtered_images_result: ""
-      when: (filtered_images | length) == 0
+      when: filtered_images is not defined
 
     - name: Print the status of the image
       debug:
